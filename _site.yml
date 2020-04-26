@@ -5,6 +5,12 @@ navbar:
   left:
     - text: "Presentación"
       href: index.html
+    - text: "Evolución del COVID-19"
+      href: casos.html
+    - text: "Seguimiento nacional"
+      href: nacional.html
+    - text: "Seguimiento subnacional"
+      href: subnacional.html
 output:
   html_document:
     theme: yeti

@@ -1,0 +1,146 @@
+---
+title: "Seguimiento nacional"
+output: html_document
+---
+
+```{r setup, include=FALSE,warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#instalar paquetes
+install.packages("RCurl")
+install.packages("XML")
+install.packages("DT")
+install.packages("tm")
+install.packages('wordcloud')
+install.packages("SnowballC")
+install.packages("RColorBrewer")
+install.packages("igraph")
+install.packages("ggplot")
+#install.packages("data.table")
+```
+
+
+```{r bases, include=FALSE}
+# cargar base de datos
+tools="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=31875411&single=true&output=csv"
+
+instrumentos<-as.data.frame(read.csv(tools))
+instrumentos$Fecha<-as.Date(instrumentos$Fecha)
+```
+
+###  Introducción
+
+<p>
+<div style="text-align:justify"> El objetivo del seguimiento nacional es *registrar la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19*. </div>
+</p>
+
+### 2.1. Trayectoria de las decisiones públicas
+
+
+<p>
+Para visualizar la actualización de las medidas frente al COVID-19: [Monitoreo de la toma de decisiones](https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pubhtml?gid=379947845&single=true)
+</p>
+
+```{r, echo=FALSE,eval=TRUE}
+library(ggplot2)
+q<-ggplot(instrumentos, aes(x=Fecha, y=Area,color=Area)) +  geom_jitter(size=2) +   scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= "Economía", label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= "Economía", label='Inmoviilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= "Economía", label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= "Economía", label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(title="Trazabilidad de las decisiones por sector",caption = "Fuente: El Peruano. Elaborado para 'Politólogos Infectados'" ,x = "Fecha", y="Medidas adoptadas")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+q+theme(axis.title.y=element_blank(),axis.text.y=element_blank(), axis.ticks.y=element_blank() , legend.position = "left")
+```
+
+
+
+<p>
+<div style="text-align:justify"> Al tomar decisiones para resolver un problema público prosigue el proceso de convertirla en medios concretos, es decir llevar la decisión política a la realidad. Para ello, las autoridades estatales tienen una “caja de herramientas” para resolver dimensiones de un problema que consideran relevante. Estos son conocidos como los instrumentos de política (policy tools). Según Vedung (1998), estos instrumentos son estrategias a través de los cuales los gobiernos ejercen su poder de manera deliberada sobre la ciudadanía o la comunidad, “en el intento de garantizar apoyo e impacto, o prevenir el cambio social”. </div>
+</p>
+
+
+<p>
+<div style="text-align:justify"> Un *análisis por instrumentos* permite explorar las medidas que son seleccionadas por el gobierno de una “caja de herramientas” de cara a la ciudadanía en su estrategia para contener la expansión del COVID-19 en el Perú. Entonces, **¿Cómo podemos encontrarle un sentido a una diversidad de instrumentos que se han venido aplicando?** La repuesta es mediante la taxonomía NATO, originalmente trabajada por Christopher Hood en su texto *The Tools of Government: Public Policy and Politics* </div>
+</p>
+
+
+### 2.2. Análisis por instrumentos de política pública
+
+
+<p>
+<div style="text-align:justify"> La **taxonomía NATO** (acrónimo de las palabras *nodality*, *authority*, *treasure*, *organization*) es una clasificación que se realiza identificando los recursos que los policy-makers movilizan para promover o restringir comportamientos en su entorno y cumplir con sus propósitos frente a un problema público (Howlett, 2011).</div>
+</p>  
+
+<p>
+<div style="text-align:justify"> 
+1. Los **instrumentos basados en la nodalidad**, son aquellos formas de información donde el Estado exhorta determinadas conductas en la comunidad;  Ejemplo: "Reporte diario de casos"
+
+2. los **instrumentos basados en la autoridad** está compuesto por las regulaciones directas como parte del control directo del comportamientos bajo normas establecidas y sus respectivas sanciones; Ejemplo: "Inmovilización Social Obligatoria"  
+
+3. aquellos **instrumentos basados en el tesoro** tienen como principal acción generar ingresos o pérdidas que incentiven las conductas esperadas; Ejemplo: "Subsidio del 35% de sueldos en planillas" 
+
+4. finalmente los **instrumentos basados en la organización**, los cuales poseen una manifestación organizacional de la cual se construye un tipo de apoyo o sustento para afrontar el problema público. Ejemplo: "Línea 113" </div>
+</p>
+
+<p>
+Entonces, **¿Cuáles han sido los instrumentos de política puestos en práctica por el gobierno para enfrentar la crisis del COVID-19?**
+</p>
+
+
+
+```{r, echo=FALSE,eval=TRUE,warning=FALSE,message=FALSE}
+library(data.table)
+library(dplyr)
+instrumentos%>%
+  dplyr::select(Fecha,
+                "Sector"="Area",
+                Instrumento,
+                Tipo)%>%
+  mutate(Fecha = as.character(Fecha)) %>% 
+  arrange(desc(Fecha)) %>% 
+  DT::datatable(
+    options = list(pageLength = 10, 
+                   lengthMenu = c(10, 15, 20),
+                   language = list(lengthMenu = "Mostrar _MENU_ entradas",
+                                   info ="Mostrando _START_ al _END_ de _TOTAL_ entradas",
+                                   search = "Buscar:",
+                                   paginate = list(previous = "Anterior",
+                                                   'next' = "Siguiente"))
+                   ),
+    rownames = FALSE
+  )
+
+##### Ver como colocar opciones multiples para filtrar
+```
+
+
+### 2.3. Redes de subsistemas politicos
+
+<p>
+<div style="text-align:justify"> El análisis de redes políticas permite visualizar y comprender las interacciones entre los actores involucrados durante un proceso de decisiones de política para hacer frente al problema público. Una red de política (policy network) es un grupo o complejo de organizaciones conectadas entre sí por dependencias de recursos y distinguidas de otros grupos o complejos por rupturas en la estructura de las dependencias de recursos.</div>
+</p>
+
+
+```{r, echo=FALSE,eval=TRUE,message=FALSE,warning=FALSE}
+#<p><img src="casos_files/figure-html/unnamed.png" /><!-- --></p>
+install.packages("networkD3")
+library(networkD3)
+library(igraph)
+
+redlink="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=542324663&single=true&output=csv"
+
+red_nacional<-as.data.frame(read.csv(redlink))
+
+red_nacional<-red_nacional[-c(3)]
+
+#simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black") Hacerlo dinamico
+```
+
+
+### 2.4. Agendación de los problemas públicos
+
+### 2.5. Conflictos sociales en torno al COVID-19
+
+### 2.6. Noticias, demandas y pronunciamientos
+
+Este apartado fue construido a partir de la información publicada en plataformas web y que fueron recopiladas en el siguiente grupo de facebook: [COVID-19 PERÚ](https://www.facebook.com/groups/254907618858716/)
+
+25/04
+
+> SALUD | Pronunciamiento del Cuerpo Médico del Hospital de Emergencias Grau. <a href = "https://www.facebook.com/SinamssopOficial/posts/2549502585300883"> Aquí </a> 
