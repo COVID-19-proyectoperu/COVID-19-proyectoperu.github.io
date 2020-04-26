@@ -1,0 +1,11 @@
+name: "my-website"
+output_dir: "."
+navbar:
+  title: "Politólogos Infectados"
+  left:
+    - text: "Presentación"
+      href: index.html
+output:
+  html_document:
+    theme: yeti
+    highlight: textmate
