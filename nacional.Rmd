@@ -51,6 +51,9 @@ trazabilidad<-ggplot(decisiones, aes(x=Fecha, y=Area,color=Area)) +  geom_jitter
 trazabilidad+theme(axis.title.y=element_blank(),axis.text.y=element_blank(), axis.ticks.y=element_blank() , legend.position = "left")
 ```
 
+```{r,include=FALSE}
+#ggplot(decisiones, aes(x=Fecha, y=summarise(as.numeric(Fecha))))+geom_line() un grafico que cuente medidas por dia y ve que dia hubo mas acciones
+```
 
 
 <p>
@@ -147,11 +150,22 @@ red_nacional<-red_nacional[-c(3)]
 
 ### 2.5. Situación de los servidores de primera línea
 
+<p>
+<div style="text-align:justify"> En este contexto de Estado de Emergencia, las princpales actividades aún vigentes han sido las relacionadas a salud, seguridad, abastecimiento, residuos sólidos, bajo ciertos protocolos que garanticen su resgardo frente al contagio del coronavirus. No obstante, la importancia de estos servidores de primera linea (también denominados *street-level burocracy*) (Lipsky, 1989) radica en que son aquellos que estan implementando las principales medidas en este contexto de Estado de Emergencia, y ello puede verse afectado en caso se presenten fallos en su resgardo. </div>
+</p>
+
 ### 2.6. Conflictos sociales en torno al COVID-19
+
+Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se reportaron 15 acciones colectivas de protestas referidas al COVID-19
 
 ### 2.7. Noticias, demandas y pronunciamientos
 
 Este apartado fue construido a partir de la información publicada en plataformas web y que fueron recopiladas en el siguiente grupo de facebook: [COVID-19 PERÚ](https://www.facebook.com/groups/254907618858716/)
+
+26/04
+
+> POBLACION INDÍGENA | La Federación de comunidades nativas de Purus - FECONAPU informó en sus redes sociales el fallecimiento del primer indígena amazónico por Covid-19, hoy 26 de abril, en Pucallpa, Ucayali. <a href = "https://www.facebook.com/orpioloreto/photos/a.791016591050813/1581044595381338/?type=3&theater"> Aquí </a> 
+
 
 25/04
 
