@@ -19,13 +19,15 @@ install.packages("gganimate")
 library(gganimate)
 install.packages("plotly")
 library(plotly)
+install.packages("dplyr")
+library(dplyr)
 ```
 
 ```{r,include=FALSE}
 
 ### Cargar la data
 
-casosperu="https://docs.google.com/spreadsheets/d/e/2PACX-1vRvjsVSZg2z_AhKayAvN0EZnn60T1lfEd59yOEK1aZfqwttG0_8QTI-Kq4MSZImcAWH5EJ6Zjd0FAqq/pub?gid=2049989741&single=true&output=csv"
+casosperu="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=1165383620&single=true&output=csv"
 
 casos=as.data.frame(read.csv(casosperu,header=T))
 
@@ -34,7 +36,7 @@ casos$casos_positivos<-as.numeric(casos$casos_positivos)
 casos$dia<-as.Date(casos$dia)
 ```
 
-####  Introducción  
+###  Introducción  
 
 <p>
 <div style="text-align:justify"> El dia **06 de marzo del 2020** se registró el primer caso de coronavirus en el Perú. Fueron tomadas las medidas iniciales y el dia 15 de marzo se anuncio el inicio del Estado de Emergencia Nacional junto con la medida de Aislamiento Social Obligatorio, para esa fecha se habian registrado 71 casos positivos. Al finalizar el mes de marzo se registraron 1065 nuevos casos. </div>
@@ -44,7 +46,7 @@ casos$dia<-as.Date(casos$dia)
 En ese sentido, esta sección tiene por objetivo responder a la pregunta **¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?**
 </p>
 
-##### 1.1. Evolución de los casos positivos detectados
+### 1.1. Evolución de los casos positivos detectados
 
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
@@ -56,13 +58,13 @@ g1 + geom_text(aes(y=casos_positivos,label=casos_positivos),position=position_do
 
 #g1 +transition_reveal(dia)
 
-#<p><img src="casos_files/figure-html/file4e0122ba841.gif" /><!-- --></p>
+
 
 ```
 
+#<p><img src="casos_files/figure-html/file4e0122ba841.gif" /><!-- --></p>
 
-
-##### 1.2. Nuevos casos positivos detectados por día
+### 1.2. Nuevos casos positivos detectados por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
 g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.4) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_minimal() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos Infectados'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
@@ -76,7 +78,7 @@ g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_do
 ```
 
 
-##### 1.3. Evolución del total de fallecimientos
+### 1.3. Evolución del total de fallecimientos
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
 
@@ -92,7 +94,7 @@ muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=posi
 
 ```
 
-##### 1.4. Nuevos fallecimientos por día
+### 1.4. Nuevos fallecimientos por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
 g4<-casos %>% ggplot(aes(x=dia, y=fallecidos_dia)) +  geom_area(alpha=0.4) +  geom_line(color="pink", size=0.8) +  geom_point(size=2, color="pink") + theme_minimal() + labs(title="Nuevos fallecimientos por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos Infectados'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
@@ -105,7 +107,7 @@ g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodg
 
 ```
 
-##### 1.5. Evolución de nuevos de hospitalizados por dia
+### 1.5. Evolución de nuevos de hospitalizados por dia
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE}
 

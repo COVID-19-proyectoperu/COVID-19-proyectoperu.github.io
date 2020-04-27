@@ -7,4 +7,36 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Aqui va ir algo
+```{r, echo=FALSE,eval=TRUE,warning=FALSE,message=FALSE}
+### cargar datos
+
+regioneslink="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZPEarncXxE3lFMD8Tp4MahTcc-hMw2XdAbn5nSPLFwvM-6YoAv3l05t9ggK0bv-/pub?gid=1102095429&single=true&output=csv"
+
+regiones=as.data.frame(read.csv(regioneslink))
+
+
+### filtrar data
+
+#instrumentos=subset(decisiones, Referencia=="Instrumento")
+
+### contruir tabla
+install.packages("dplyr")
+library(dplyr)
+regiones%>%
+  dplyr::select("Región"="regiones", "Casos confirmados"="casos.positivos",
+                "% Presupuesto ejecutado"="x_presupuesto_covid")%>%
+  DT::datatable(
+    options = list(pageLength = 10, 
+                   lengthMenu = c(10, 15, 20),
+                   language = list(lengthMenu = "Mostrar _MENU_ entradas",
+                                   info ="Mostrando _START_ al _END_ de _TOTAL_ entradas",
+                                   search = "Buscar:",
+                                   paginate = list(previous = "Anterior",
+                                                   'next' = "Siguiente"))
+                   ),
+    rownames = FALSE
+  )
+
+##### Ver como colocar opciones multiples para filtrar
+```
+
