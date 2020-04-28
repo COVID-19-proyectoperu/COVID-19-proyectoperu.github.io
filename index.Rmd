@@ -21,8 +21,8 @@ output: html_document
 * Seguimiento subnacional:
 
   Maira Chagua Taype  
-  Berenisse Rivera Alarcon  
-  Elizabeth Trujillo
+  Berenisse Rivera Alarcón  
+  Elizabeth Trujillo  
   Joshua Gamero
 
 <p>
