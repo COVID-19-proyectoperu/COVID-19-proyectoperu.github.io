@@ -9,17 +9,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, include=FALSE}
 # instalar paquetes
-install.packages("tidyverse")
+#install.packages("tidyverse")
 library(tidyverse)
-install.packages("ggplot")
+#install.packages("ggplot")
 library(ggplot2)
-install.packages("gifski")
+#install.packages("gifski")
 library(gifski)
-install.packages("gganimate")
+#install.packages("gganimate")
 library(gganimate)
-install.packages("plotly")
+#install.packages("plotly")
 library(plotly)
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 ```
 
@@ -71,7 +71,7 @@ g1
 ### 1.2. Nuevos casos positivos detectados por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
-g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.4) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_minimal() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_minimal() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
 
@@ -115,9 +115,12 @@ g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodg
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE}
 
+hospital<-casos[!is.na(casos$hospital_nuevos),]
+
+
 ### Evolucion de hospitalizados
 
-g5<-casos %>% ggplot(aes(x=dia, y=hospital_nuevos))+ geom_line(color="grey", size=0.8) +  geom_point(size=2, color="black") + theme_minimal() + labs(title= "Evolución de nuevos de nuevos hospitalizados por dia",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Reportes diarios del Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+g5<-hospital %>% ggplot(aes(x=dia, y=hospital_nuevos))+ geom_line(color="grey", size=0.8) +  geom_point(size=2, color="black") + theme_minimal() + labs(title= "Evolución de nuevos de nuevos hospitalizados por dia",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Reportes diarios del Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 g5 + geom_text(aes(y=hospital_nuevos,label=hospital_nuevos),position=position_dodge(width = 0.9),size=3, vjust=-1,hjust=0.5,col="blue")+ geom_hline(yintercept = 0)
 
@@ -130,13 +133,34 @@ g5 + geom_text(aes(y=hospital_nuevos,label=hospital_nuevos),position=position_do
 ### 1.6. Evolución de personas en UCI
 
 ```{r UCI, warning=FALSE, echo=FALSE,eval=TRUE}
-uci<-casos %>% ggplot(aes(x=dia, y=uci_uso))+ geom_line(color="blue", size=0.8) +  geom_point(size=2, color="blue") + theme_minimal() + labs(title= "Evolución de personas en UCI",x = "Fecha", y="Número de personas en UCI",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + geom_text(aes(y=uci_uso,label=uci_uso),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
+ucidata<-casos[!is.na(casos$uci_uso),]
+
+uci<-ucidata %>% ggplot(aes(x=dia, y=uci_uso))+ geom_line(color="blue", size=0.8) +  geom_point(size=2, color="blue") + theme_minimal() + labs(title= "Evolución de personas en UCI",x = "Fecha", y="Número de personas en UCI",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + geom_text(aes(y=uci_uso,label=uci_uso),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
 
 uci
 
 ```
 
-### 1.7. Evolución de los casos positivos activos
+### 1.7. Evolución en la disponibilidad de camas UCI
+
+```{r, echo=FALSE,eval=TRUE}
+uci_semana=subset(casos,dia>"2020-04-20")
+
+
+library(dplyr)
+uci_semana%>%
+  dplyr::select("Fecha"="dia","Total de camas UCI"="uci_total" ,"Camas UCI ocupadas"="uci_uso", "Camas UCI disponibles"="uci_disponibles","% de aumento respecto al día anterior"="x_uci") %>%  DT::datatable(rownames = FALSE)
+```
+
+
+
+
+### 1.8. Evolución de los casos positivos activos
+
+<p>
+<div style="text-align:justify"> El número de casos activos es registrada descontando de los casos confirmados al número de muertos y los pacientes recuperados. Esta cifra ha variado en la tendencia por un aumento considerable en el número de recuperados. </div>
+</p>
+
 
 ```{r, warning=FALSE,echo=FALSE,eval=TRUE}
 
