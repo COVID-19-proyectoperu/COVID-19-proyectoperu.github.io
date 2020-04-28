@@ -16,13 +16,14 @@ output: html_document
   Alonso Tovar Rojas  
   Carol Pflücker Romero  
   Victor Romero Torres  
-  Luisa Carranza  
+  Luisa Carranza Avalos
 
 * Seguimiento subnacional:
 
   Maira Chagua Taype  
-  Bere Rivera Alarcon  
-  Elizabeth Trujillo  
+  Berenisse Rivera Alarcon  
+  Elizabeth Trujillo
+  Joshua Gamero
 
 <p>
 <div style="text-align:justify"> Este portal esta abierto a toda colaboración, aquellos que tengan interes en apoyar en el seguimiento de los datos de alguna sección (datos, nacional, sub-nacional) y/o proponer agregar apartados en las secciones. Para sumarse en el proyecto pueden escribir a [Alonso Tovar](mailto:a.tovar1498@gmail.com). Los colaboradores deben estar disponibles para una constante actualizacion de la información del portal.</div>

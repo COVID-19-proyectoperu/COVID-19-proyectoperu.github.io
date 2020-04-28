@@ -136,6 +136,7 @@ uci
 
 ```
 
+### 1.7. Evolución de los casos positivos activos
 
 ```{r, warning=FALSE,echo=FALSE,eval=TRUE}
 
