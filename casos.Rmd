@@ -130,7 +130,7 @@ g5 + geom_text(aes(y=hospital_nuevos,label=hospital_nuevos),position=position_do
 
 ```
 
-### 1.6. Evolución de personas en UCI
+### 1.6. Evolución de personas en UCI 
 
 ```{r UCI, warning=FALSE, echo=FALSE,eval=TRUE}
 ucidata<-casos[!is.na(casos$uci_uso),]
@@ -141,7 +141,7 @@ uci
 
 ```
 
-### 1.7. Evolución en la disponibilidad de camas UCI
+### 1.7. Evolución en la disponibilidad de camas UCI (última semana)
 
 ```{r, echo=FALSE,eval=TRUE}
 uci_semana=subset(casos,dia>"2020-04-20")
@@ -149,7 +149,7 @@ uci_semana=subset(casos,dia>"2020-04-20")
 
 library(dplyr)
 uci_semana%>%
-  dplyr::select("Fecha"="dia","Total de camas UCI"="uci_total" ,"Camas UCI ocupadas"="uci_uso", "Camas UCI disponibles"="uci_disponibles","% de aumento respecto al día anterior"="x_uci") %>%  DT::datatable(rownames = FALSE)
+  dplyr::select("Fecha"="dia","Total de camas UCI"="uci_total" ,"Camas UCI ocupadas"="uci_uso", "Camas UCI disponibles"="uci_disponibles") %>%  DT::datatable(rownames = FALSE)
 ```
 
 
@@ -189,7 +189,9 @@ g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(
 
 
 
-
+<p>
+<div style="text-align:right"> Datos actualizados al 28/04/2020 </div>
+</p>
 
 
 
