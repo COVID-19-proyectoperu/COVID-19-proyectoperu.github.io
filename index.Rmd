@@ -4,16 +4,17 @@ output: html_document
 ---
 
 <p>
-<div style="text-align:justify"> Este portal es un esfuerzo conjunto para realizar un monitoreo de las decisiones políticas adoptadas por el gobierno peruano en respuesta a la pandemia del nuevo coronavirus de Wuhan (COVID-19). El objetivo principal es la aplicación de una serie de conceptos para el estudio de políticas públicas como instrumentos de políticas, conflictividad social, redes de coordinación, agenda de problemas públicos, entre otros. Parte de la idea de construir un repositorio de las medidas adoptadas durante la emergencia sanitaria. </div>
+<div style="text-align:justify"> Este portal es un esfuerzo conjunto para realizar un monitoreo de las decisiones políticas adoptadas por el gobierno peruano en respuesta a la pandemia del nuevo coronavirus (SARS-CoV-2). El objetivo principal es la aplicación de una serie de conceptos para el estudio de políticas públicas como instrumentos de políticas, conflictividad social, redes de coordinación, agenda de problemas públicos, entre otros. Parte de la idea de construir un repositorio de las medidas adoptadas durante la emergencia sanitaria para la reflexión sobre la respuesta del Estado Peruano. </div>
 </p>
 
 
-*Colaboradores principales*
+
+#### Colaboradores principales
 
 * Seguimiento nacional:
   
   Alonso Tovar Rojas  
-  Carol Pflucker Romero  
+  Carol Pflücker Romero  
   Victor Romero Torres  
   Luisa Carranza  
 
@@ -23,5 +24,11 @@ output: html_document
   Bere Rivera Alarcon  
   Elizabeth Trujillo  
 
+<p>
+<div style="text-align:justify"> Este portal esta abierto a toda colaboración, aquellos que tengan interes en apoyar en el seguimiento de los datos de alguna sección (datos, nacional, sub-nacional) y/o proponer agregar apartados en las secciones. Para sumarse en el proyecto pueden escribir a [Alonso Tovar](mailto:a.tovar1498@gmail.com). Los colaboradores deben estar disponibles para una constante actualizacion de la información del portal.</div>
+</p>
 
-Para solicitar información, reportar fallas y/o contribuir con comentarios de mejora, comunicarse al correo electrónico: [**covid19.proyectoperu@gmail.com**](mailto:covid19.proyectoperu@gmail.com) 
+
+<p>
+<div style="text-align:justify"> Para solicitar información, reportar fallas y/o contribuir con comentarios de mejora, comunicarse al correo electrónico: [**covid19.proyectoperu@gmail.com**](mailto:covid19.proyectoperu@gmail.com) </div>
+</p>

@@ -15,8 +15,8 @@ install.packages('wordcloud')
 install.packages("SnowballC")
 install.packages("RColorBrewer")
 install.packages("igraph")
-install.packages("ggplot")
-install.packages("dplyr")
+#install.packages("ggplot")
+#install.packages("dplyr")
 
 ```
 
@@ -47,6 +47,7 @@ Para visualizar la actualización de las medidas frente al COVID-19: [Monitoreo 
 library(ggplot2)
 
 trazabilidad<-ggplot(decisiones, aes(x=Fecha, y=Area,color=Area)) +  geom_jitter(size=2) +   scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= "Economía", label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= "Economía", label='Inmoviilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= "Economía", label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= "Economía", label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= "Economía", label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(title="Trazabilidad de las decisiones por sector",caption = "Fuente: El Peruano, Defensoría del Pueblo. Elaborado para 'Politólogos Infectados'" ,x = "Fecha", y="Medidas adoptadas")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
 
 trazabilidad+theme(axis.title.y=element_blank(),axis.text.y=element_blank(), axis.ticks.y=element_blank() , legend.position = "left")
 ```
@@ -148,19 +149,42 @@ red_nacional<-red_nacional[-c(3)]
 
 ### 2.4. Agendación de los problemas públicos
 
+<p>
+<div style="text-align:justify"> El giro argumentativo  en las políticas públicas ha significado la inserción del enfoque constructivista, cuya premisa fundamental es la de ponderar a la argumentación como esencial en todas las etapas de formulación de las políticas.  Así pues, registrando los discursos de los actores durante el proceso de emergencia del COVID-19 se ha venido construyendo una imagen de la política (policy image) que encuadran el problema mediante información empírica y sus interpretaciones para las soluciones por adoptar desde el gobierno (Baumgartner & Jones, 1993)
+
+Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propuesta por Kingdom (1984), que se basa en la identificación de los problemas, las políticas públicas y la política. La conjugación de estas, impulsada por actores clave, abrió una ventana de oportunidad para que surjan una serie de decisiones para afrontar la emergencia sanitaria que representa el COVID-19.</div>
+</p>
+
 ### 2.5. Situación de los servidores de primera línea
 
 <p>
-<div style="text-align:justify"> En este contexto de Estado de Emergencia, las princpales actividades aún vigentes han sido las relacionadas a salud, seguridad, abastecimiento, residuos sólidos, bajo ciertos protocolos que garanticen su resgardo frente al contagio del coronavirus. No obstante, la importancia de estos servidores de primera linea (también denominados *street-level burocracy*) (Lipsky, 1989) radica en que son aquellos que estan implementando las principales medidas en este contexto de Estado de Emergencia, y ello puede verse afectado en caso se presenten fallos en su resgardo. </div>
+<div style="text-align:justify"> En este contexto de Estado de Emergencia, las princpales actividades aún vigentes han sido las relacionadas a salud, seguridad, abastecimiento, residuos sólidos, bajo ciertos protocolos que garanticen su resgardo frente al contagio del coronavirus. No obstante, la importancia de estos servidores de primera linea (también denominados *Street-level bureaucracy*) (Lipsky, 1989) radica en que son aquellos que estan implementando las principales medidas en este contexto de Estado de Emergencia, y ello puede verse afectado en caso se presenten fallos en su resgardo. </div>
 </p>
+
+#### Personal médico
+
+<p><img src="casos_files/figure-html/medicos.jpg" /width=360 height=480><!-- --></p>
+
 
 ### 2.6. Conflictos sociales en torno al COVID-19
 
-Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se reportaron 15 acciones colectivas de protestas referidas al COVID-19
+Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se registraron **15 acciones de protesta** vinculadas a la situacion de emergencia por causa del COVID-19
 
 ### 2.7. Noticias, demandas y pronunciamientos
 
-Este apartado fue construido a partir de la información publicada en plataformas web y que fueron recopiladas en el siguiente grupo de facebook: [COVID-19 PERÚ](https://www.facebook.com/groups/254907618858716/)
+Este apartado fue construido a partir de la información publicada en plataformas web y que fueron recopiladas en el siguiente grupo de facebook: [COVID-19 PERÚ](https://www.facebook.com/groups/254907618858716/) creado por Carlos Andres Guevara.
+
+27/04
+
+> JUSTICIA |Los presos de los penales de Ancón 2 en Piedras Gordas, Castro Castro en San Juan de Luringancho, Huamancaca Chico en Junín se han amotinado en protesta por la falta de atención de las autoridades penitenciarias a los reclusos contagiadosiro dos cuerpos de los fallecidos por COVID-19, reportaron los familiares de los reclusos. <a href = "https://larepublica.pe/politica/2020/04/27/motines-en-penales-de-ancon-castro-castro-y-huamancaca-por-covid-19/"> Aquí </a> 
+
+> SALUD | El Agustino: Técnicos y enfermeros del hospital Hipólito Unanue exigen pagos de marzo y abril. <a href = "https://canaln.pe/actualidad/agustino-enfermeros-hospital-hipolito-unanue-protestaron-falta-pago-n412214"> Aquí </a> 
+
+> SALUD |El personal de salud del área de Emergencia del hospital de EsSalud protestó por falta de equipos de protección. Autoridades señalan que les otorgan todos los implementos para atención de pacientes. Unos 18 trabajadores dieron positivo al COVID-19.<a href = "https://publimetro.pe/actualidad/coronavirus-peru-trabajadores-de-emergencia-realizaron-planton-en-los-exteriores-del-hospital-almenara-cuarentena-estado-de-emergencia-covid-19-nndc-noticia/"> Aquí </a>
+
+
+> SALUD | Personal del Hospital Almanzor realiza plantón por falta de equipos de protección. <a href = "https://larepublica.pe/sociedad/2020/04/27/personal-del-hospital-almanzor-realiza-planton-por-falta-de-equipos-de-proteccion-coronavirus-hospital-almanzor-aguinaga-epp-enfermeras-salud-victor-zamora-lrnd/?fbclid=IwAR2NDMRTtxe-_oQ08TM8aiDsyOfVUICDr7Vq0L7tzmSB50aMF0enOr65l8k"> Aquí </a> 
+
 
 26/04
 

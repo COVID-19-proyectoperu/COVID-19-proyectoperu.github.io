@@ -1,11 +1,15 @@
 ---
-title: "3. Situación Subnacional"
+title: "Situación Sub-nacional"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+### 3.1. Gobiernos regionales
+
+#### 3.1.1. Datos sobre casos y presupuesto ejecutado
 
 ```{r, echo=FALSE,eval=TRUE,warning=FALSE,message=FALSE}
 ### cargar datos
@@ -20,7 +24,7 @@ regiones=as.data.frame(read.csv(regioneslink))
 #instrumentos=subset(decisiones, Referencia=="Instrumento")
 
 ### contruir tabla
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 regiones%>%
   dplyr::select("Región"="regiones", "Casos confirmados"="casos.positivos",
