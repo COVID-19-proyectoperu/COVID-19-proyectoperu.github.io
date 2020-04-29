@@ -146,8 +146,6 @@ red_nacional<-red_nacional[-c(3)]
 simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black") 
 ```
 
-<p><img src="casos_files/figure-html/grafi.html" /><!-- --></p>
-
 ### 2.4. Agendación de los problemas públicos
 
 <p>
