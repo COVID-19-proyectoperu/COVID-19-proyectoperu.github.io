@@ -133,7 +133,7 @@ instrumentos%>%
 
 ```{r, echo=FALSE,eval=TRUE,message=FALSE,warning=FALSE}
 
-install.packages("networkD3")
+#install.packages("networkD3")
 library(networkD3)
 library(igraph)
 
@@ -143,9 +143,10 @@ red_nacional<-as.data.frame(read.csv(redlink))
 
 red_nacional<-red_nacional[-c(3)]
 
-#simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black") Hacerlo dinamico
+simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black") 
 ```
 
+<p><img src="casos_files/figure-html/grafi.html" /><!-- --></p>
 
 ### 2.4. Agendación de los problemas públicos
 
