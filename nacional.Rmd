@@ -143,7 +143,7 @@ red_nacional<-as.data.frame(read.csv(redlink))
 
 red_nacional<-red_nacional[-c(3)]
 
-simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black") 
+#simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black") 
 ```
 
 ### 2.4. Agendación de los problemas públicos
