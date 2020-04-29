@@ -168,11 +168,28 @@ Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propu
 
 ### 2.6. Conflictos sociales en torno al COVID-19
 
-Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se registraron **15 acciones de protesta** vinculadas a la situacion de emergencia por causa del COVID-19
+Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se registraron **18 acciones de protesta** vinculadas a la situacion de emergencia por causa del COVID-19.
+
+> Marzo
+
+```{r, echo=FALSE, eval=TRUE}
+
+protesta<-subset(decisiones, Referencia=="Protesta")
+
+library(dplyr)
+protesta%>%
+  dplyr::select("Fecha"="Fecha","Actores en protesta"="Entidad" ,"Contenido"="Decisiones_publicas", "Accion colectiva"="Tipo_protesta") %>%  DT::datatable(rownames = FALSE)
+
+```
+
 
 ### 2.7. Noticias, demandas y pronunciamientos
 
 Este apartado fue construido a partir de la información publicada en plataformas web y que fueron recopiladas en el siguiente grupo de facebook: [COVID-19 PERÚ](https://www.facebook.com/groups/254907618858716/) creado por Carlos Andres Guevara.
+
+28/04
+
+> SALUD | Mayoría de casos de coronavirus en Puno son policías y personal de Salud. De los 66 casos confirmados de coronavirus en Puno, la mayoría son miembros de la Policía, el INPE y trabajadores de salud<a href = "https://larepublica.pe/sociedad/2020/04/27/mayoria-de-casos-de-coronavirus-en-puno-son-policias-y-personal-de-salud-lrsd/De/?fbclid=IwAR3czuENKOJJ3iGrPiB14gCpeWYVXymb-AwjUwHs2fBmtaoXnZ2jIpJrpas"> Aquí </a> 
 
 27/04
 
