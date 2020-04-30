@@ -98,6 +98,14 @@ muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=posi
 
 ```
 
+
+```{r, include=FALSE}
+#### Por lugar de fallecimiento grafico
+```
+
+
+
+
 ### 1.4. Nuevos fallecimientos por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
@@ -141,7 +149,7 @@ uci
 
 ```
 
-### 1.7. Evolución en la disponibilidad de camas UCI (última semana)
+### 1.7. Evolución en la disponibilidad de camas UCI 
 
 ```{r, echo=FALSE,eval=TRUE}
 uci_semana=subset(casos,dia>"2020-04-20")
@@ -190,7 +198,7 @@ g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(
 
 
 <p>
-<div style="text-align:right"> Datos actualizados al 28/04/2020 </div>
+<div style="text-align:right"> Datos actualizados al 29/04/2020 </div>
 </p>
 
 

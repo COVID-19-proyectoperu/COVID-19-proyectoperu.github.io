@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### 3.1. Gobiernos regionales
 
-#### 3.1.1. Datos sobre casos y presupuesto ejecutado
+#### 3.1.1. Datos sobre casos y muestras realizadas
 
 ```{r, echo=FALSE,eval=TRUE,warning=FALSE,message=FALSE,error=FALSE}
 ### cargar datos
@@ -19,16 +19,11 @@ regioneslink="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZP
 regiones=as.data.frame(read.csv(regioneslink))
 
 
-### filtrar data
-
-#instrumentos=subset(decisiones, Referencia=="Instrumento")
-
 ### contruir tabla
 #install.packages("dplyr")
 library(dplyr)
 regiones%>%
-  dplyr::select("Región"="regiones", "Casos confirmados"="casos.positivos",
-                "% Presupuesto ejecutado"="x_presupuesto_covid")%>%
+  dplyr::select("Región"="region","Muestras realizadas"="muestras_regionales", "Positivos"="casos_positivos", "Muestras x 100 mil hab."="x_100_muestras","Positivos x 100 mil hab."="x_100_positivos","Porcentaje de positivos"="x_contagio")%>%
   DT::datatable(
     options = list(pageLength = 10, 
                    lengthMenu = c(10, 15, 20),
@@ -45,5 +40,18 @@ regiones%>%
 
 
 #### Municipalidades 
+```
+
+
+<p>
+<div style="text-align:right"> Datos actualizados al 29/04/2020. Fuente: Sala Situacional-MINSA </div>
+</p>
+
+
+```{r, include=F}
+#install.packages("maptools")
+#library(maptools)
+
+#mapa <- readShapeSpatial("DEPARTAMENTOS.shp")
 ```
 

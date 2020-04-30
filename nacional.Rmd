@@ -33,7 +33,9 @@ decisiones$Fecha<-as.Date(decisiones$Fecha)
 ###  Introducción
 
 <p>
-<div style="text-align:justify"> El objetivo del seguimiento nacional es *registrar la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19*. </div>
+<div style="text-align:justify"> El objetivo del seguimiento nacional es *registrar la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19*.
+
+Este seguimiento cuenta con **7 secciones**: Trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas. </div>
 </p>
 
 ### 2.1. Trayectoria de las decisiones públicas
@@ -43,7 +45,7 @@ decisiones$Fecha<-as.Date(decisiones$Fecha)
 Para visualizar la actualización de las medidas frente al COVID-19: [Monitoreo de la toma de decisiones](https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pubhtml?gid=31875411&single=true)
 </p>
 
-```{r trazabilidad de decisiones, echo=FALSE,eval=TRUE}
+```{r trazabilidad de decisiones, echo=FALSE,eval=TRUE, warning=FALSE}
 library(ggplot2)
 
 trazabilidad<-ggplot(decisiones, aes(x=Fecha, y=Area,color=Area)) +  geom_jitter(size=2) +   scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= "Economía", label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= "Economía", label='Inmoviilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= "Economía", label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= "Economía", label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= "Economía", label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(title="Trazabilidad de las decisiones por sector",caption = "Fuente: El Peruano, Defensoría del Pueblo. Elaborado para 'Politólogos Infectados'" ,x = "Fecha", y="Medidas adoptadas")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
@@ -143,7 +145,7 @@ red_nacional<-as.data.frame(read.csv(redlink))
 
 red_nacional<-red_nacional[-c(3)]
 
-#simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black") 
+#simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black", width=360, height=480) 
 ```
 
 ### 2.4. Agendación de los problemas públicos
