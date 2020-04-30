@@ -33,7 +33,7 @@ decisiones$Fecha<-as.Date(decisiones$Fecha)
 ###  Introducción
 
 <p>
-<div style="text-align:justify"> El objetivo del seguimiento nacional es *registrar la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19*.
+<div style="text-align:justify"> El objetivo del seguimiento nacional es registrar la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19.
 
 Este seguimiento cuenta con **7 secciones**: Trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas. </div>
 </p>
@@ -131,7 +131,14 @@ instrumentos%>%
 <div style="text-align:justify"> El análisis de redes políticas permite visualizar y comprender las interacciones entre los actores involucrados durante un proceso de decisiones de política para hacer frente al problema público. Una red de política (policy network) es un grupo o complejo de organizaciones conectadas entre sí por dependencias de recursos y distinguidas de otros grupos o complejos por rupturas en la estructura de las dependencias de recursos.</div>
 </p>
 
+Para ver la leyenda de los tipos de actores por colores de los nodos <a href = "casos_files/figure-html/actores.png"> aquí </a>. El tamaño de los nodos es construida por el número de conexiones con la finalidad de representar sus vínculos en la red.
+
 <p><img src="casos_files/figure-html/unnamed.png" /><!-- --></p>
+
+<p>
+<div style="text-align:right"> Red actualizada al 26/03/2020 </div>
+</p>
+
 
 ```{r, echo=FALSE,eval=TRUE,message=FALSE,warning=FALSE}
 
@@ -156,7 +163,7 @@ red_nacional<-red_nacional[-c(3)]
 Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propuesta por Kingdom (1984), que se basa en la identificación de los problemas, las políticas públicas y la política. La conjugación de estas, impulsada por actores clave, abrió una ventana de oportunidad para que surjan una serie de decisiones para afrontar la emergencia sanitaria que representa el COVID-19.</div>
 </p>
 
-### 2.5. Situación de los servidores de primera línea
+### 2.5. Situación de los servidores en primera línea
 
 <p>
 <div style="text-align:justify"> En este contexto de Estado de Emergencia, las princpales actividades aún vigentes han sido las relacionadas a salud, seguridad, abastecimiento, residuos sólidos, bajo ciertos protocolos que garanticen su resgardo frente al contagio del coronavirus. No obstante, la importancia de estos servidores de primera linea (también denominados *Street-level bureaucracy*) (Lipsky, 1989) radica en que son aquellos que estan implementando las principales medidas en este contexto de Estado de Emergencia, y ello puede verse afectado en caso se presenten fallos en su resgardo. </div>
@@ -166,12 +173,15 @@ Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propu
 
 <p><img src="casos_files/figure-html/medicos.jpg" /width=360 height=480><!-- --></p>
 
+#### Policias
 
-### 2.6. Conflictos sociales en torno al COVID-19
+> Max Iglesias (Comandante General de la PNP): "Alrededor de mas de dos mil policías contagiados y 24 policias que lamentablemente han fallecido." (*29 de abril del 2020*) 
 
-Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se registraron **18 acciones de protesta** vinculadas a la situacion de emergencia por causa del COVID-19.
 
-> Marzo
+### 2.6. Conflictos sociales vinculados al Estado de Emergencia
+
+Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se registraron **18 acciones de protesta** vinculadas a la situación de emergencia por causa del COVID-19. En el mes de abril estas manifestaciones se han venido incrementando diariamente.
+
 
 ```{r, echo=FALSE, eval=TRUE}
 
@@ -190,7 +200,10 @@ Este apartado fue construido a partir de la información publicada en plataforma
 
 28/04
 
-> SALUD | Mayoría de casos de coronavirus en Puno son policías y personal de Salud. De los 66 casos confirmados de coronavirus en Puno, la mayoría son miembros de la Policía, el INPE y trabajadores de salud<a href = "https://larepublica.pe/sociedad/2020/04/27/mayoria-de-casos-de-coronavirus-en-puno-son-policias-y-personal-de-salud-lrsd/De/?fbclid=IwAR3czuENKOJJ3iGrPiB14gCpeWYVXymb-AwjUwHs2fBmtaoXnZ2jIpJrpas"> Aquí </a> 
+> SALUD | Mayoría de casos de coronavirus en Puno son policías y personal de Salud. De los 66 casos confirmados de coronavirus en Puno, la mayoría son miembros de la Policía, el INPE y trabajadores de salud <a href = "https://larepublica.pe/sociedad/2020/04/27/mayoria-de-casos-de-coronavirus-en-puno-son-policias-y-personal-de-salud-lrsd/De/?fbclid=IwAR3czuENKOJJ3iGrPiB14gCpeWYVXymb-AwjUwHs2fBmtaoXnZ2jIpJrpas"> Aquí </a>
+
+
+> EDUCACIÓN | Alrededor de 4 mil docentes que laboraban en colegios privados de la región Arequipa se han quedado desempleados, según Rustbel Begazo Salazar, presidente de la Asociación de Instituciones Educativas Privadas de la región Arequipa (Asiepra) <a href = "https://larepublica.pe/sociedad/2020/04/28/cuarentena-4-mil-profesores-se-quedaron-sin-trabajo-en-arequipa-coronavirus-lrsd/"> Aquí </a>
 
 27/04
 
