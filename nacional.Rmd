@@ -65,7 +65,7 @@ trazabilidad+theme(axis.title.y=element_blank(),axis.text.y=element_blank(), axi
 
 
 <p>
-<div style="text-align:justify"> Un *análisis por instrumentos* permite explorar las medidas que son seleccionadas por el gobierno de una “caja de herramientas” de cara a la ciudadanía en su estrategia para contener la expansión del COVID-19 en el Perú. Entonces, **¿Cómo podemos encontrarle un sentido a una diversidad de medidas que se han venido aplicando?** La repuesta es mediante la taxonomía NATO, originalmente trabajada por Christopher Hood en su texto *The Tools of Government: Public Policy and Politics* </div>
+<div style="text-align:justify"> Un *análisis por instrumentos* permite explorar las medidas que son seleccionadas por el gobierno de una “caja de herramientas” de cara a la ciudadanía en su estrategia para contener la expansión del COVID-19 en el Perú. Entonces, **¿Cuál es el significado de las diversas medidas que ha venido aplicando el gobierno central?** En ese sentido, se identifican los siguientes tipos de instrumentos mediante la taxonomía NATO, originalmente trabajada por Christopher Hood en su texto *The Tools of Government: Public Policy and Politics* </div>
 </p>
 
 
@@ -73,18 +73,18 @@ trazabilidad+theme(axis.title.y=element_blank(),axis.text.y=element_blank(), axi
 
 
 <p>
-<div style="text-align:justify"> La **taxonomía NATO** (acrónimo de las palabras *nodality*, *authority*, *treasure*, *organization*) es una clasificación que se realiza identificando los recursos que los policy-makers movilizan para promover o restringir comportamientos en su entorno y cumplir con sus propósitos frente a un problema público (Howlett, 2011).</div>
+<div style="text-align:justify"> La **taxonomía NATO** (acrónimo de las palabras *nodality*, *authority*, *treasure*, *organization*) es una clasificación que se realiza identificando los recursos que los policy-makers (hacedores de politicas) movilizan para promover o restringir comportamientos en su entorno y cumplir con sus propósitos frente a un problema público (Howlett, 2011).</div>
 </p>  
 
 <p>
 <div style="text-align:justify"> 
-1. Los **instrumentos basados en la nodalidad**, son aquellos formas de información donde el Estado exhorta determinadas conductas en la comunidad;  Ejemplo: "Reporte diario de casos"
+1. Los **instrumentos basados en la información**, son aquellas formas de uso de la información donde el Estado influye en el cumplimiento de determinadas conductas en los ciudadanos;  Ejemplo: "Reporte diario de casos"
 
-2. los **instrumentos basados en la autoridad** está compuesto por las regulaciones directas como parte del control directo del comportamientos bajo normas establecidas y sus respectivas sanciones; Ejemplo: "Inmovilización Social Obligatoria"  
+2. Los **instrumentos basados en la autoridad** está compuesto por las regulaciones directas como parte del control directo del comportamientos bajo normas establecidas y sus respectivas sanciones; Ejemplo: "Decretos para la inmovilización social"  
 
-3. aquellos **instrumentos basados en el tesoro** tienen como principal acción generar ingresos o pérdidas que incentiven las conductas esperadas; Ejemplo: "Subsidio del 35% de sueldos en planillas" 
+3. Aquellos **instrumentos basados en el tesoro** tienen como principal acción generar ingresos o pérdidas que incentiven las conductas esperadas; Ejemplo: "Subsidio del 35% de sueldos en planillas" 
 
-4. finalmente los **instrumentos basados en la organización**, los cuales poseen una manifestación organizacional de la cual se construye un tipo de apoyo o sustento para afrontar el problema público. Ejemplo: "Línea 113" </div>
+4. Finalmente, los **instrumentos basados en la organización**, los cuales poseen una manifestación organizacional de la cual se construye un tipo de apoyo o sustento para afrontar el problema público. Ejemplo: "Conformación del Comando COVID" </div>
 </p>
 
 <p>
@@ -166,8 +166,19 @@ Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propu
 ### 2.5. Situación de los servidores en primera línea
 
 <p>
-<div style="text-align:justify"> En este contexto de Estado de Emergencia, las princpales actividades aún vigentes han sido las relacionadas a salud, seguridad, abastecimiento, residuos sólidos, bajo ciertos protocolos que garanticen su resgardo frente al contagio del coronavirus. No obstante, la importancia de estos servidores de primera linea (también denominados *Street-level bureaucracy*) (Lipsky, 1989) radica en que son aquellos que estan implementando las principales medidas en este contexto de Estado de Emergencia, y ello puede verse afectado en caso se presenten fallos en su resgardo. </div>
+<div style="text-align:justify"> En este contexto de Estado de Emergencia, las principales actividades aún vigentes han sido las relacionadas a salud, seguridad, abastecimiento, residuos sólidos, bajo ciertos protocolos que garanticen su resgardo frente al contagio del coronavirus. Poniendo en la mira, la importancia de estos servidores de primera linea (también denominados por la literatura como *street-level bureaucracy*). Lipsky (1989) menciona esta categoría para un tipo de empleo público en donde las interacciones cotidianas se enmarcan en la discrecionalidad, y en donde el ideal de la politica suele no poder cumplirse por distintas limitaciones. 
+
+Este tipo de funcionarios se encuentran en una encrucijada, ya que su trabajo esta estructurado para lograr objetivos establecidos por un proceso politico/tecnico y que determinan su comportamiento bajo procedimientos estandarizados, y al mismo tiempo se encuentran frente a ciudadanos, los cuales demandan constantemente excepciones como casos individuales o "excepcionales", es decir pueden reclamar, acatar y/o sugestionar sobre el accionar de estos funcionarios (García, Puemápe & otros, 2017) 
+
+Su importancia radica en que son aquellos funcionarios quienes estan implementando las principales medidas en este contexto de Estado de Emergencia, y ello puede verse afectado en caso se presenten fallos en su resgardo. </div>
 </p>
+
+#### Personal de enfermería
+
+> El Colegio de Enferemeros del Perú ha solicitado a Contraloria General de la República la fiscalización dentro de los establecimientos de salud, por el incumplimiento de las medidas de protección, seguridad y dotación de EPP para el personal de Enfermería que atiende pacientes contagiados por Covid-19. (*30 de abril del 2020*)
+
+> Monica Rios (Decana del Colegio de Enfermeros del Perú): "Quien atiende esta expuesto a contagiarse, ya tenemos 350 enfermeras contagiadas" (*26 de abril del 2020*)
+
 
 #### Personal médico
 
@@ -177,14 +188,22 @@ Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propu
 
 > Max Iglesias (Comandante General de la PNP): "Alrededor de mas de dos mil policías contagiados y 24 policias que lamentablemente han fallecido." (*29 de abril del 2020*) 
 
-#### Militares
+#### Fuerza militar
 
 > Walter Martos (Ministro de Defensa): "Hasta el momento han fallecido 6 militares de las Fuerzas Armadas (FF.AA.) a causa del COVID-19 y otros 349 están contagiados en el país" (*29 de abril del 2020*)
 
 
-### 2.6. Conflictos sociales vinculados al Estado de Emergencia
+### 2.6. Protestas sociales vinculadas al Estado de Emergencia
 
-Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se registraron **18 acciones de protesta** vinculadas a la situación de emergencia por causa del COVID-19. En el mes de abril estas manifestaciones se han venido incrementando diariamente.
+<p>
+<div style="text-align:justify"> La Defensoría del Pueblo define al **conflicto social** como «un proceso complejo en el que sectores de la sociedad, el Estado o las empresas perciben que sus objetivos, intereses, valores o necesidades son contradictorios». Dentro de esa dinámica, existen las acciones colectivas de protesta, las cuales no son en sí mismas el conflicto social sino una expresión de éste.
+
+Respecto a ello, la Defensoría del Pueblo hace un seguimiento de las **acciones colectivas de protesta** como «la realización conjunta de hechos generalmente tendientes a efectuar un reclamo en el espacio público». Se refieren a marchas, plantones, toma de locales, bloqueo de vías, etc., es decir, formas públicas de expresar una demanda o descontento y que revelaría la existencia de una controversia.
+
+Dicha acción puede responder a la iniciativa de un grupo de personas, organizado o espontáneo, demandando atención a sus derechos ante el Estado o ante una empresa. Además, puede durar muy poco tiempo si la demanda es atendida o gestionada (Defensoria del Pueblo, 2012).
+
+Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, para el mes de marzo se registraron **18 acciones de protesta** vinculadas a la situación de emergencia por causa del COVID-19. En el mes de abril estas manifestaciones se han venido incrementando diariamente.</div>
+</p>
 
 
 ```{r, echo=FALSE, eval=TRUE}
@@ -193,7 +212,7 @@ protesta<-subset(decisiones, Referencia=="Protesta")
 
 library(dplyr)
 protesta%>%
-  dplyr::select("Fecha"="Fecha","Actores en protesta"="Entidad" ,"Contenido"="Decisiones_publicas", "Accion colectiva"="Tipo_protesta") %>%  DT::datatable(rownames = FALSE)
+  dplyr::select("Fecha"="Fecha","Actores en protesta"="Entidad" ,"Contenido de demandas"="Decisiones_publicas", "Tipo de acción colectiva"="Tipo_protesta") %>%  DT::datatable(rownames = FALSE)
 
 ```
 
