@@ -1,4 +1,4 @@
-# COVID-19-proyectoperu.github.io
+# Politólogos en cuarentena
 
 Proyecto de un portal para agrupar y analizar las medidas adoptadas por el Estado Peruano en respuesta al coronavirus.
 

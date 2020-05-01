@@ -42,9 +42,8 @@ regiones%>%
 #### Municipalidades 
 ```
 
-
 <p>
-<div style="text-align:right"> Datos actualizados al 29/04/2020. Fuente: Sala Situacional-MINSA </div>
+<div style="text-align:right"> Datos actualizados al 30/04/2020. Fuente: Sala Situacional-MINSA </div>
 </p>
 
 

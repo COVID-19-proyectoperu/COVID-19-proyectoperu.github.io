@@ -65,7 +65,7 @@ trazabilidad+theme(axis.title.y=element_blank(),axis.text.y=element_blank(), axi
 
 
 <p>
-<div style="text-align:justify"> Un *análisis por instrumentos* permite explorar las medidas que son seleccionadas por el gobierno de una “caja de herramientas” de cara a la ciudadanía en su estrategia para contener la expansión del COVID-19 en el Perú. Entonces, **¿Cómo podemos encontrarle un sentido a una diversidad de instrumentos que se han venido aplicando?** La repuesta es mediante la taxonomía NATO, originalmente trabajada por Christopher Hood en su texto *The Tools of Government: Public Policy and Politics* </div>
+<div style="text-align:justify"> Un *análisis por instrumentos* permite explorar las medidas que son seleccionadas por el gobierno de una “caja de herramientas” de cara a la ciudadanía en su estrategia para contener la expansión del COVID-19 en el Perú. Entonces, **¿Cómo podemos encontrarle un sentido a una diversidad de medidas que se han venido aplicando?** La repuesta es mediante la taxonomía NATO, originalmente trabajada por Christopher Hood en su texto *The Tools of Government: Public Policy and Politics* </div>
 </p>
 
 
@@ -176,6 +176,10 @@ Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propu
 #### Policias
 
 > Max Iglesias (Comandante General de la PNP): "Alrededor de mas de dos mil policías contagiados y 24 policias que lamentablemente han fallecido." (*29 de abril del 2020*) 
+
+#### Militares
+
+> Walter Martos (Ministro de Defensa): "Hasta el momento han fallecido 6 militares de las Fuerzas Armadas (FF.AA.) a causa del COVID-19 y otros 349 están contagiados en el país" (*29 de abril del 2020*)
 
 
 ### 2.6. Conflictos sociales vinculados al Estado de Emergencia
