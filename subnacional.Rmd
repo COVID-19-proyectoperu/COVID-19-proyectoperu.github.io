@@ -88,9 +88,9 @@ transferencias%>%
 
 library(ggplot2)
 
-p<-ggplot(transferencias, aes(x_contagio,x_presupuesto_covid)) + geom_point(aes(size=casos_positivos, colour = macroregion )) + theme_classic()+ labs(x = "Positividad a nivel regional (%)",y = "Ejecución de transferencias regionales (%)")
+p<-ggplot(transferencias, aes(x_contagio,x_presupuesto_covid)) + geom_point(aes(size=casos_positivos, colour = macroregion )) + theme_classic()+ labs(x = "Positividad a nivel regional (%)",y = "Ejecución de transferencias regionales (%)") 
 
-p
+p + labs(caption = "Fuente: Sala situacional - MINSA, Consulta Amigable MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
 ```
 
 
