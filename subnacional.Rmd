@@ -97,7 +97,7 @@ library(plotly)
 
 peru_regiones$EJECUTADO<-transferencias$x_presupuesto_covid*100
 
-m_base=ggplot(peru_regiones) + geom_sf(aes(fill = EJECUTADO)) 
+m_base=ggplot(peru_regiones) + geom_sf(aes(fill = EJECUTADO)) +theme_classic() 
 
 m_base + scale_fill_gradient(low="lightblue", high ="darkblue") + guides(fill=guide_legend(title="Porcentaje ejecutado"))+ labs(title="Transferencias por el COVID-19 para los GR (% ejecutado)",caption = "Fuente: Consulta Amigable - MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 ```
