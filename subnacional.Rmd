@@ -19,11 +19,12 @@ regioneslink="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZP
 regiones=as.data.frame(read.csv(regioneslink))
 
 
+
 ### contruir tabla
 #install.packages("dplyr")
 library(dplyr)
 regiones%>%
-  dplyr::select("Región"="region","Muestras realizadas"="muestras_regionales", "Positivos"="casos_positivos", "Muestras x 100 mil hab."="x_100_muestras","Positivos x 100 mil hab."="x_100_positivos","Porcentaje de positivos"="x_contagio")%>%
+  dplyr::select("Región"="region","Muestras realizadas"="muestras_regionales", "Positivos"="casos_positivos", "Muestras x 100 mil hab."="x_100_muestras","Positivos x 100 mil hab."="x_100_positivos","Proporción de positivos"="x_contagio")%>%
   DT::datatable(
     options = list(pageLength = 10, 
                    lengthMenu = c(10, 15, 20),
@@ -90,19 +91,18 @@ devtools::install_github("calderonsamuel/perumapas")
 library(perumapas)
 library(sf) # required 
 library(ggplot2)
+library(tidyverse)
+library(plotly)
 
 
 peru_regiones$EJECUTADO<-transferencias$x_presupuesto_covid*100
 
+m_base=ggplot(peru_regiones) + geom_sf(aes(fill = EJECUTADO)) 
 
-ggplot(peru_regiones) +
-    geom_sf(aes(fill = EJECUTADO)) +
-    theme_classic() +
-    ggtitle("Transferencias por el COVID-19 para los GR (% ejecutado)") + guides(fill=guide_legend(title="Porcentaje ejecutado")) + labs(caption = "Fuente: Consulta Amigable MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
-
+m_base + scale_fill_gradient(low="lightblue", high ="darkblue") + guides(fill=guide_legend(title="Porcentaje ejecutado"))+ labs(title="Transferencias por el COVID-19 para los GR (% ejecutado)",caption = "Fuente: Consulta Amigable - MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 ```
 <p>
-<div style="text-align:right"> Datos actualizados al 01/05/2020. Código para los mapas de [Samuel Calderón](https://github.com/calderonsamuel/perumapas)</div>
+<div style="text-align:right"> Datos actualizados al 01/05/2020. </div>
 </p>
 
 
@@ -116,7 +116,11 @@ library(ggplot2)
 
 p<-ggplot(transferencias, aes(x_contagio,x_presupuesto_covid)) + geom_point(aes(size=casos_positivos, colour = macroregion )) + theme_classic()+ labs(x = "Positividad del COVID-19 a nivel regional (%)",y = "Ejecución de transferencias regionales (%)") 
 
-p + labs(caption = "Fuente: Sala situacional - MINSA, Consulta Amigable MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
+w<-p + labs(caption = "Fuente: Sala situacional - MINSA, Consulta Amigable MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+w
+
+#ggplotly(w, tooltip = "region") 
 
 
 ### Pendiente: invertir paleta de colores, colocar % a los datos
