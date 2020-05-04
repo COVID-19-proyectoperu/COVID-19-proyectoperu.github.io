@@ -39,7 +39,7 @@ casos$dia<-as.Date(casos$dia)
 ###  Introducción  
 
 <p>
-<div style="text-align:justify"> El dia **06 de marzo del 2020** se registró el primer caso de coronavirus en el Perú. Fueron tomadas las medidas iniciales y el dia 15 de marzo se anuncio el inicio del Estado de Emergencia Nacional junto con la medida de Aislamiento Social Obligatorio, para esa fecha se habian registrado 71 casos positivos. Al finalizar el mes de marzo se registraron 1065 nuevos casos. </div>
+<div style="text-align:justify"> El dia **06 de marzo del 2020** se registró el primer caso de coronavirus en el Perú. Fueron tomadas las medidas iniciales y el dia 15 de marzo se anuncio el inicio del Estado de Emergencia Nacional junto con la medida de Aislamiento Social Obligatorio, para esa fecha se habian registrado 71 casos positivos. Al finalizar el mes de marzo se registraron 1065 nuevos casos. Un mes después se habián pasado los 36 mil casos. </div>
 </p>
 
 <p>
@@ -71,7 +71,7 @@ g1
 ### 1.2. Nuevos casos positivos detectados por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
-g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_minimal() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
 
@@ -109,7 +109,7 @@ muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=posi
 ### 1.4. Nuevos fallecimientos por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
-g4<-casos %>% ggplot(aes(x=dia, y=fallecidos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="#CC79A7", size=0.8) +  geom_point(size=2, color="#CC79A7") + theme_minimal() + labs(title="Nuevos fallecimientos por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+g4<-casos %>% ggplot(aes(x=dia, y=fallecidos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="#CC79A7", size=0.8) +  geom_point(size=2, color="#CC79A7") + theme_classic() + labs(title="Nuevos fallecimientos por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
 
@@ -119,16 +119,32 @@ g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodg
 
 ```
 
+
 ### 1.5. Evolución de nuevos de hospitalizados por dia
+
+```{r, echo=FALSE, eval=TRUE}
+
+hospital<-casos[!is.na(casos$hospital),]
+
+
+hospitalizados<-hospital %>% ggplot(aes(x=dia, y=hospital))+ geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic() + labs(title= "Evolución del número de hospitalizados",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+hospitalizados + geom_text(aes(y=hospital,label=hospital),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="blue")
+
+
+```
+
+
+### 1.6. Evolución de nuevos de hospitalizados por dia
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE}
 
-hospital<-casos[!is.na(casos$hospital_nuevos),]
+hospital_nuevos<-casos[!is.na(casos$hospital_nuevos),]
 
 
 ### Evolucion de hospitalizados
 
-g5<-hospital %>% ggplot(aes(x=dia, y=hospital_nuevos))+ geom_line(color="grey", size=0.8) +  geom_point(size=2, color="black") + theme_minimal() + labs(title= "Evolución de nuevos de nuevos hospitalizados por dia",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Reportes diarios del Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+g5<-hospital_nuevos %>% ggplot(aes(x=dia, y=hospital_nuevos))+ geom_line(color="grey", size=0.8) +  geom_point(size=2, color="darkgrey") + theme_classic() + labs(title= "Evolución de nuevos de nuevos hospitalizados por dia",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Reportes diarios del Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 g5 + geom_text(aes(y=hospital_nuevos,label=hospital_nuevos),position=position_dodge(width = 0.9),size=3, vjust=-1,hjust=0.5,col="blue")+ geom_hline(yintercept = 0)
 
@@ -138,18 +154,18 @@ g5 + geom_text(aes(y=hospital_nuevos,label=hospital_nuevos),position=position_do
 
 ```
 
-### 1.6. Evolución de personas en UCI 
+### 1.7. Evolución de personas en UCI 
 
 ```{r UCI, warning=FALSE, echo=FALSE,eval=TRUE}
 ucidata<-casos[!is.na(casos$uci_uso),]
 
-uci<-ucidata %>% ggplot(aes(x=dia, y=uci_uso))+ geom_line(color="blue", size=0.8) +  geom_point(size=2, color="blue") + theme_minimal() + labs(title= "Evolución de personas en UCI",x = "Fecha", y="Número de personas en UCI",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + geom_text(aes(y=uci_uso,label=uci_uso),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
+uci<-ucidata %>% ggplot(aes(x=dia, y=uci_uso))+ geom_line(color="blue", size=0.8) +  geom_point(size=2, color="blue") + theme_classic() + labs(title= "Evolución de personas en UCI",x = "Fecha", y="Número de personas en UCI",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + geom_text(aes(y=uci_uso,label=uci_uso),position=position_dodge(width = 0.9),size=2, vjust=-2,hjust=0.5,col="black")
 
 uci
 
 ```
 
-### 1.7. Evolución en la disponibilidad de camas UCI 
+### 1.8. Evolución en la disponibilidad de camas UCI 
 
 ```{r, echo=FALSE,eval=TRUE}
 uci_semana=subset(casos,dia>"2020-04-20")
@@ -163,7 +179,7 @@ uci_semana%>%
 
 
 
-### 1.8. Evolución de los casos positivos activos
+### 1.9. Evolución de los casos positivos activos
 
 <p>
 <div style="text-align:justify"> El número de casos activos es registrada descontando de los casos confirmados al número de muertos y los pacientes recuperados. Esta cifra ha variado en la tendencia por un aumento considerable en el número de recuperados. </div>
@@ -174,7 +190,7 @@ uci_semana%>%
 
 abril=subset(casos,dia>"2020-04-01")
 
-g4<-abril %>% ggplot(aes(x=dia, y=casos_activos)) +  geom_area(alpha=0.1) +  geom_line(color="#56B4E9", size=0.8) +  geom_point(size=2, color="#56B4E9") + theme_minimal() + labs(title="Numero de casos activos (Abril)",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
+g4<-abril %>% ggplot(aes(x=dia, y=casos_activos)) +  geom_area(alpha=0.1) +  geom_line(color="#56B4E9", size=0.8) +  geom_point(size=2, color="#56B4E9") + theme_classic() + labs(title="Numero de casos activos (Abril)",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
 
 g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
 ```
@@ -198,7 +214,7 @@ g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(
 
 
 <p>
-<div style="text-align:right"> Datos actualizados al 30/04/2020 </div>
+<div style="text-align:right"> Datos actualizados al 03/05/2020 </div>
 </p>
 
 
