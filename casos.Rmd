@@ -21,7 +21,7 @@ library(gganimate)
 library(plotly)
 #install.packages("dplyr")
 library(dplyr)
-install.packages("ggiraph")
+#install.packages("ggiraph")
 library(ggiraph)
 ```
 
@@ -53,9 +53,10 @@ En ese sentido, esta sección tiene por objetivo responder a la pregunta **¿Có
 
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
-g1<-casos %>% ggplot(aes(x=dia, y=casos_positivos)) +  geom_area(fill="grey", alpha=0.4) +  geom_line(color="darkgreen", size=0.8) +  geom_point(size=2, color="darkgreen") + theme_minimal() + labs(title="Evolución de casos positivos detectados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-08")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-08")), y= 7000, label='Incorporacion de las pruebas rápidas'), size=3, angle=90, vjust=-0.4, hjust=0,color="black") + geom_text(aes(y=casos_positivos,label=casos_positivos),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
+g1<-casos %>% ggplot(aes(x=dia, y=casos_positivos)) +  geom_area(fill="grey", alpha=0.4) +  geom_line(color="darkgreen", size=0.8) +  geom_point(size=2, color="darkgreen") + theme_minimal() + labs(title="Evolución de casos positivos detectados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-08")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-08")), y= 7000, label='Incorporacion de las pruebas rápidas'), size=3, angle=90, vjust=-0.4, hjust=0,color="black") 
 
-g1
+#geom_text(aes(y=casos_positivos,label=casos_positivos),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
+
 
 ###Grafico gif
 #casos %>% ggplot(aes(x=dia, y=casos_positivos)) +  geom_area(fill="grey", alpha=0.4) +  geom_line(color="darkgreen", size=0.8) +  geom_point(size=2, color="darkgreen") + theme_minimal() + labs(title="Evolución de casos positivos detectados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-08")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-08")), y= 7000, label='Incorporacion de las pruebas rápidas'), size=3, angle=90, vjust=-0.4, hjust=0,color="black") +transition_reveal(dia)
@@ -65,7 +66,13 @@ g1
 
 #g1 +transition_reveal(dia)
 
+posit<-g1  +   geom_point_interactive(aes(y = casos_positivos,tooltip=casos_positivos), col = "darkgreen") 
 
+#ggplotly(muertos, tooltip = c("dia", "fallecidos_total"),height = 350, width=600) 
+
+#+transition_reveal(dia)
+
+girafe(code = print(posit) )
 
 ```
 
@@ -94,11 +101,15 @@ g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_do
 
 muertos<-casos %>% ggplot(aes(x=dia, y=fallecidos_total))+ geom_line(color="black", size=0.8) +  geom_point(size=2, color="black") + theme_minimal() + labs(title= "Evolución del total de fallecimientos",x = "Fecha", y="Número de fallecidos",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
-muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="blue")
+#+ geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="blue")
+
+m1<-muertos  +   geom_point_interactive(aes(y = fallecidos_total,tooltip=fallecidos_total), col = "black") 
 
 #ggplotly(muertos, tooltip = c("dia", "fallecidos_total"),height = 350, width=600) 
 
 #+transition_reveal(dia)
+
+girafe(code = print(m1) )
 
 ```
 
@@ -133,7 +144,7 @@ hospitaldata<-casos[!is.na(casos$hospital),]
 
 hospitalizados<-hospitaldata %>% ggplot(aes(x=dia, y=hospital))+ geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic()  + labs(title= "Evolución del número de hospitalizados",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
-p1<-hospitalizados +   geom_point_interactive(aes(y = hospital,tooltip=hospital), col = "#8B1C62") + geom_line_interactive(aes(y = hospital, tooltip = hospital), stat = "identity", alpha=.5)
+p1<-hospitalizados +   geom_point_interactive(aes(y = hospital,tooltip=hospital), col = "orange") 
   
 #geom_text(aes(y=hospital,label=hospital),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="blue")
 
