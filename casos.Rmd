@@ -21,6 +21,8 @@ library(gganimate)
 library(plotly)
 #install.packages("dplyr")
 library(dplyr)
+install.packages("ggiraph")
+library(ggiraph)
 ```
 
 ```{r,include=FALSE}
@@ -34,6 +36,7 @@ casos=as.data.frame(read.csv(casosperu,header=T))
 ### Lectura adecuada
 casos$casos_positivos<-as.numeric(casos$casos_positivos)
 casos$dia<-as.Date(casos$dia)
+### datos
 ```
 
 ###  Introducción  
@@ -125,14 +128,16 @@ g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodg
 
 ```{r, echo=FALSE, eval=TRUE}
 
-hospital<-casos[!is.na(casos$hospital),]
+hospitaldata<-casos[!is.na(casos$hospital),]
 
 
-hospitalizados<-hospital %>% ggplot(aes(x=dia, y=hospital))+ geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic() + labs(title= "Evolución del número de hospitalizados",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+hospitalizados<-hospitaldata %>% ggplot(aes(x=dia, y=hospital))+ geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic()  + labs(title= "Evolución del número de hospitalizados",x = "Fecha", y="Número de hospitalizados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
-hospitalizados + geom_text(aes(y=hospital,label=hospital),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="blue")
+p1<-hospitalizados +   geom_point_interactive(aes(y = hospital,tooltip=hospital), col = "#8B1C62") + geom_line_interactive(aes(y = hospital, tooltip = hospital), stat = "identity", alpha=.5)
+  
+#geom_text(aes(y=hospital,label=hospital),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="blue")
 
-
+girafe(code = print(p1) )
 ```
 
 
