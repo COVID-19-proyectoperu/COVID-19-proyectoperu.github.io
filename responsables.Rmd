@@ -1,0 +1,46 @@
+---
+title: "¿Quiénes contribuyen al portal?"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Responsables del portal
+
+* Seguimiento nacional:
+  
+  Alonso Tovar Rojas  
+  Carol Pflücker Romero  
+  Victor Romero Torres  
+  Luisa Carranza Avalos
+  Carlos Andres Guevara
+
+* Seguimiento subnacional:
+
+  Maira Chagua Taype  
+  Berenisse Rivera Alarcón  
+  Elizabeth Trujillo  
+  Joshua Gamero  
+  
+* Editores del portal:  
+
+  Alonso Tovar Rojas  
+  Manuel Ponte Torrel  
+
+
+ 
+### Para sumarse al equipo
+
+<p>
+<div style="text-align:justify"> Este portal esta abierto a toda colaboración, aquellos que tengan interes en apoyar en el seguimiento de los datos de alguna sección (datos, nacional, sub-nacional) y/o proponer agregar apartados en las secciones. Para sumarse en el proyecto pueden escribir a [Alonso Tovar](mailto:a.tovar1498@gmail.com). Los colaboradores deben estar disponibles para una constante actualizacion de la información del portal.</div>
+</p>
+
+
+<p>
+<div style="text-align:justify"> Para solicitar información, reportar fallas y/o contribuir con comentarios de mejora, comunicarse al correo electrónico: [**covid19.proyectoperu@gmail.com**](mailto:covid19.proyectoperu@gmail.com) </div>
+</p>
+
+

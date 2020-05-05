@@ -11,6 +11,8 @@ navbar:
       href: nacional.html
     - text: "Seguimiento sub-nacional"
       href: subnacional.html
+    - text: "¿Quiénes contribuyen al portal?"
+      href: responsables.html
 output:
   html_document:
     theme: yeti

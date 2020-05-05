@@ -216,6 +216,32 @@ protesta%>%
 
 ```
 
+##### Cantidad de acciones de protestas vinculadas al Estado de Emergencia por sector
+
+
+```{r,echo=FALSE,eval=TRUE}
+dataprotesta<-data.frame(protesta$Area,protesta$Fecha, protesta$Mes)
+
+dataprotesta$numero<-1
+
+#### Funcion
+numeric_dataset <- function(Dataset){
+  nums <- sapply(Dataset, is.numeric)
+  return(Dataset[ , nums])
+}
+
+num_protesta <- numeric_dataset(dataprotesta)
+
+sum_protesta <- aggregate(num_protesta, by = list(dataprotesta$protesta.Area), FUN = sum)
+colnames(sum_protesta) <- c("Area","Cantidad")  
+
+#### Graficos
+
+ggplot(protesta,aes(Area))+geom_bar(position = "dodge", width = 0.8) + coord_flip() + theme_classic() + geom_text(stat='count', aes(x = Area, label = ..count..), vjust = 0, hjust=-0.5,size=3)+ theme(legend.position = "none") + labs(title="Número de protestas vinculadas al Estado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Área")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+```
+
+
 
 ### 2.7. Noticias, demandas y pronunciamientos
 
