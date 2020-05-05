@@ -40,7 +40,7 @@ regiones%>%
 ```
 
 <p>
-<div style="text-align:right"> Datos actualizados al 03/05/2020. Fuente: Sala Situacional-MINSA </div>
+<div style="text-align:right"> Datos actualizados al 04/05/2020. Fuente: Sala Situacional-MINSA </div>
 </p>
 
 
@@ -53,7 +53,7 @@ regioneslink="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZP
 
 regiones=as.data.frame(read.csv(regioneslink, dec = ","))
 
-transferencias<-regiones[!is.na(regiones$x_presupuesto_covid),]
+transferencias<-regiones[!is.na(regiones$x_ejecucion_2019),]
 
 
 transferencias$ejecutado=transferencias$transferencias_covid*transferencias$x_presupuesto_covid 
@@ -78,12 +78,12 @@ transferencias%>%
 ```
 
 <p>
-<div style="text-align:right"> Datos actualizados al 01/05/2020. Fuente: Consulta amigable - MEF </div>
+<div style="text-align:right"> Datos actualizados al 03/05/2020. Fuente: Consulta amigable - MEF </div>
 </p>
 
-#### 3.1.3. Mapa de ejecución de las transferencias a Gobiernos Regionales
+#### 3.1.3. Mapa de situación de los Gobiernos Regionales
 
-```{r,echo=FALSE,eval=TRUE, warning=FALSE, message=FALSE}
+```{r,include=FALSE}
 #install.packages("devtools")
 library(devtools)
 devtools::install_github("calderonsamuel/perumapas")
@@ -101,9 +101,15 @@ m_base=ggplot(peru_regiones) + geom_sf(aes(fill = EJECUTADO)) +theme_classic()
 
 m_base + scale_fill_gradient(low="lightblue", high ="darkblue") + guides(fill=guide_legend(title="Porcentaje ejecutado"))+ labs(title="Transferencias por el COVID-19 para los GR (% ejecutado)",caption = "Fuente: Consulta Amigable - MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 ```
+
+<p><html src="casos_files/figure-html/mapa.html" /><!-- --></p>
+
+Para conocer la situación a nivel regional: [Mapa interactivo de Gobiernos Regionales](casos_files/figure-html/mapa.html)
+
 <p>
-<div style="text-align:right"> Datos actualizados al 01/05/2020. </div>
+<div style="text-align:right"> Datos actualizados al 03/05/2020. Mapa elaborado por Manuel Ponte.</div>
 </p>
+
 
 
 #### 3.1.4. Presencia de casos positivos y nivel de gasto de los Gobiernos Regionales
