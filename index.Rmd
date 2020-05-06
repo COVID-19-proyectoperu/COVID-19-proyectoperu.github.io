@@ -23,7 +23,6 @@ output: html_document
   
   Alonso Tovar Rojas  
   Carol Pflücker Romero  
-  Victor Romero Torres  
   Luisa Carranza Avalos  
   Carlos Andres Guevara
 
