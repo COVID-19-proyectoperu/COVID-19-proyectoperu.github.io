@@ -43,7 +43,7 @@ BD_COVID$Fecha<-as.Date(BD_COVID$Fecha) # Modificar datos sobre fecha
 Este seguimiento cuenta con **7 secciones**: Trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas. </div>
 </p>
 
-### 2.1. Trayectoria de las decisiones públicas
+### Trayectoria de las decisiones públicas
 
 
 <p>
@@ -86,7 +86,7 @@ t1
 </p>
 
 
-### 2.2. Análisis por instrumentos de política pública
+### Análisis por instrumentos de política pública
 
 
 <p>
@@ -138,10 +138,36 @@ instrumentos%>%
   )
 
 ##### Ver como colocar opciones multiples para filtrar
+
+
+### Graficos
+
+
+#### Funcion
+numeric_dataset <- function(Dataset){
+  nums <- sapply(Dataset, is.numeric)
+  return(Dataset[ , nums])
+}
+
+datainstrumentos<-data.frame(instrumentos$Fecha)
+datainstrumentos$conteo<-1
+
+
+num_tools <- numeric_dataset(datainstrumentos)
+
+sum_tools <- aggregate(num_tools, by = list(datainstrumentos$instrumentos.Fecha), FUN = sum)
+colnames(sum_tools) <- c("Fecha","Cantidad")  
+e6<-cumsum(sum_tools$Cantidad) 
+sum_tools$acumulado<-e6
+
+##### Grafico
+
+sum_tools %>% ggplot(aes(x=Fecha, y=acumulado)) +  geom_area(fill="grey", alpha=0) +  geom_line(color="grey", size=0.8) +  geom_point(size=2, color="black") + theme_classic() + theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número acumulado de instrumentos empleados")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
 ```
 
 
-### 2.3. Redes de subsistemas politicos
+### Redes de subsistemas politicos
 
 <p>
 <div style="text-align:justify"> El análisis de redes políticas permite visualizar y comprender las interacciones entre los actores involucrados durante un proceso de decisiones de política para hacer frente al problema público. Una red de política (policy network) es un grupo o complejo de organizaciones conectadas entre sí por dependencias de recursos y distinguidas de otros grupos o complejos por rupturas en la estructura de las dependencias de recursos.</div>
@@ -171,15 +197,21 @@ red_nacional<-red_nacional[-c(3)]
 #simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black", width=360, height=480) 
 ```
 
-### 2.4. Agendación de los problemas públicos
 
-<p>
-<div style="text-align:justify"> El giro argumentativo  en las políticas públicas ha significado la inserción del enfoque constructivista, cuya premisa fundamental es la de ponderar a la argumentación como esencial en todas las etapas de formulación de las políticas.  Así pues, registrando los discursos de los actores durante el proceso de emergencia del COVID-19 se ha venido construyendo una imagen de la política (policy image) que encuadran el problema mediante información empírica y sus interpretaciones para las soluciones por adoptar desde el gobierno (Baumgartner & Jones, 1993)
+```{r, include=FALSE}
+### Agendación de los problemas públicos
 
-Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propuesta por Kingdom (1984), que se basa en la identificación de los problemas, las políticas públicas y la política. La conjugación de estas, impulsada por actores clave, abrió una ventana de oportunidad para que surjan una serie de decisiones para afrontar la emergencia sanitaria que representa el COVID-19.</div>
-</p>
+#<p>
+#<div style="text-align:justify"> El giro argumentativo  en las políticas públicas ha significado la inserción del enfoque constructivista, cuya premisa fundamental es la de ponderar a la argumentación como esencial en todas las etapas de formulación de las políticas.  Así pues, registrando los discursos de los actores durante el proceso de emergencia del COVID-19 se ha venido construyendo una imagen de la política (policy image) que encuadran el problema mediante información empírica y sus interpretaciones para las soluciones por adoptar desde el gobierno (Baumgartner & Jones, 1993)
 
-### 2.5. Situación de los servidores en primera línea
+#Asimismo, debemos tener en cuenta la teoría de las corrientes múltiples, propuesta por Kingdom (1984), que se basa en la identificación de los problemas, las políticas públicas y la política. La conjugación de estas, impulsada por actores clave, abrió una ventana de oportunidad para que surjan una serie de decisiones para afrontar la emergencia sanitaria que representa el COVID-19.</div>
+#</p>
+
+
+```
+
+
+### Situación de los servidores en primera línea
 
 <p>
 <div style="text-align:justify"> En este contexto de Estado de Emergencia, las principales actividades aún vigentes han sido las relacionadas a salud, seguridad, abastecimiento, residuos sólidos, bajo ciertos protocolos que garanticen su resgardo frente al contagio del coronavirus. Poniendo en la mira, la importancia de estos servidores de primera linea (también denominados por la literatura como *street-level bureaucracy*). Lipsky (1989) menciona esta categoría para un tipo de empleo público en donde las interacciones cotidianas se enmarcan en la discrecionalidad, y en donde el ideal de la politica suele no poder cumplirse por distintas limitaciones. 
@@ -209,7 +241,7 @@ Su importancia radica en que son aquellos funcionarios quienes estan implementan
 > Walter Martos (Ministro de Defensa): "Hasta el momento han fallecido 6 militares de las Fuerzas Armadas (FF.AA.) a causa del COVID-19 y otros 349 están contagiados en el país" (*29 de abril del 2020*)
 
 
-### 2.6. Protestas sociales vinculadas al Estado de Emergencia
+### Protestas sociales vinculadas al Estado de Emergencia
 
 <p>
 <div style="text-align:justify"> La Defensoría del Pueblo define al **conflicto social** como «un proceso complejo en el que sectores de la sociedad, el Estado o las empresas perciben que sus objetivos, intereses, valores o necesidades son contradictorios». Dentro de esa dinámica, existen las acciones colectivas de protesta, las cuales no son en sí mismas el conflicto social sino una expresión de éste.
@@ -222,7 +254,7 @@ Según el reporte de conflictos mensual emitido por la Defensoria del Pueblo, pa
 </p>
 
 
-```{r, echo=FALSE, eval=TRUE}
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
 
 protesta<-subset(BD_COVID, Referencia=="Protesta")
 
@@ -237,30 +269,39 @@ protesta%>%
 
 
 ```{r Pendiente 3,echo=FALSE,eval=TRUE}
-#dataprotesta<-data.frame(protesta$Area,protesta$Fecha, protesta$Mes)
-
-#dataprotesta$numero<-1
-
 #### Funcion
-#numeric_dataset <- function(Dataset){
-  #nums <- sapply(Dataset, is.numeric)
-  #return(Dataset[ , nums])
-#}
 
-#num_protesta <- numeric_dataset(dataprotesta)
+numeric_dataset <- function(Dataset){
+  nums <- sapply(Dataset, is.numeric)
+  return(Dataset[ , nums])
+}
 
-#sum_protesta <- aggregate(num_protesta, by = list(dataprotesta$protesta.Area), FUN = sum)
-#colnames(sum_protesta) <- c("Area","Cantidad")  
+dataprotesta<-data.frame(protesta$Fecha, protesta$Area)
+dataprotesta$conteo<-1
+
+
+num_protesta <- numeric_dataset(dataprotesta)
+
+sum_protesta <- aggregate(num_protesta, by = list(dataprotesta$protesta.Fecha,dataprotesta$protesta.Area), FUN = sum)
+colnames(sum_protesta) <- c("Fecha","Area","Cantidad")  
+
+
+sum_protesta$acumulado <- do.call(c, tapply(sum_protesta$Cantidad, sum_protesta$Area, FUN=cumsum))
+
+
 
 #### Graficos
 
 ggplot(protesta,aes(Area), fill=Mes)+geom_bar(position = "dodge2", width = 0.8) + coord_flip() + theme_classic() + geom_text(stat='count', aes(x = Area, label = ..count..), vjust = 0, hjust=-0.5,size=3)+ theme(legend.position = "none") + labs(title="Número de protestas vinculadas al \n Estado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Área")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
+sum_protesta %>% ggplot(aes(x=Fecha, y=acumulado, fill=Area, color=Area)) +  geom_line(size=0.5) +  geom_point(size = 2) + theme_classic() + ylim(0,30) + theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+labs(title="Total de protestas registradas durante el \n Estado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Fecha")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+
 ```
 
 
 
-### 2.7. Noticias, demandas y pronunciamientos
+### Noticias, demandas y pronunciamientos
 
 Este apartado fue construido a partir de la información publicada en plataformas web y que fueron recopiladas en el siguiente grupo de facebook: [COVID-19 PERÚ](https://www.facebook.com/groups/254907618858716/) creado por Carlos Andres Guevara.
 

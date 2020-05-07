@@ -46,14 +46,17 @@ casos$dia<-as.Date(casos$dia)
 </p>
 
 <p>
-En ese sentido, esta sección tiene por objetivo responder a la pregunta **¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?**
+En ese sentido, esta sección tiene por objetivo responder a la pregunta **¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?**  
+
+<div style="text-align:right"> Base de los datos sobre el COVID-19 en el Perú [Aquí](https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=1165383620&single=true&output=csv)</div>
+
 </p>
 
-### 1.1. Evolución de los casos positivos detectados
+### Evolución de los casos positivos detectados
 
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
-g1<-casos %>% ggplot(aes(x=dia, y=casos_positivos)) +  geom_area(fill="grey", alpha=0.4) +  geom_line(color="darkgreen", size=0.8) +  geom_point(size=2, color="darkgreen")+ylim(0, 60000) + theme_minimal() + labs(title="Evolución de casos positivos detectados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-08")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-08")), y= 7000, label='Incorporacion de las pruebas rápidas'), size=3, angle=90, vjust=-0.4, hjust=0,color="black")+ geom_text(aes(y=casos_positivos,label=casos_positivos),position=position_dodge(width = 0.9),size=2.5, vjust=1,hjust=1,col="black", angle=-80)
+g1<-casos %>% ggplot(aes(x=dia, y=casos_positivos)) +  geom_area(fill="grey", alpha=0.4) +  geom_line(color="darkgreen", size=0.8) +  geom_point(size=2, color="darkgreen")+ylim(0, 60000) + theme_minimal() + labs(title="Evolución de casos positivos detectados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-08")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-08")), y= 10000, label='Incorporacion de las pruebas rápidas'), size=3, angle=90, vjust=-0.4, hjust=0,color="black")+ geom_text(aes(y=casos_positivos,label=casos_positivos),position=position_dodge(width = 0.9),size=2.5, vjust=1,hjust=1.2,col="black", angle=-70)
 
 
 ###Grafico gif
@@ -78,7 +81,7 @@ g1
 
 <p><img src="casos_files/figure-html/fileef225135d9.gif" /><!-- --></p>
 
-### 1.2. Nuevos casos positivos detectados por día
+### Nuevos casos positivos detectados por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
 g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
@@ -92,15 +95,15 @@ g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_do
 ```
 
 
-### 1.3. Evolución del total de fallecimientos
+### Evolución del total de fallecimientos
 
-```{r, echo=FALSE,eval=TRUE, message=FALSE}
+```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE}
 
 ### Evolucion de fallecimientos
 
 muertos<-casos %>% ggplot(aes(x=dia, y=fallecidos_total))+ geom_line(color="black", size=0.8) +  geom_point(size=2, color="black") + theme_minimal()+ ylim(0,1500) + labs(title= "Evolución del total de fallecimientos",x = "Fecha", y="Número de fallecidos",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
-muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=1,col="blue")
+muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=position_dodge(width = 0.9),size=2.5, vjust=0.8,hjust=1.3,col="blue", angle=-70)
 
 #m1<-muertos  +   geom_point_interactive(aes(y = fallecidos_total,tooltip=fallecidos_total), col = "black") 
 
@@ -120,7 +123,7 @@ muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=posi
 
 
 
-### 1.4. Nuevos fallecimientos por día
+### Nuevos fallecimientos por día
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE}
 g4<-casos %>% ggplot(aes(x=dia, y=fallecidos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="#CC79A7", size=0.8) +  geom_point(size=2, color="#CC79A7") + theme_classic() + labs(title="Nuevos fallecimientos por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
@@ -134,7 +137,7 @@ g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodg
 ```
 
 
-### 1.5. Evolución de nuevos de hospitalizados por dia
+### Evolución de nuevos de hospitalizados por dia
 
 ```{r, echo=FALSE, eval=TRUE}
 
@@ -151,7 +154,7 @@ hospitalizados+geom_text(aes(y=hospital,label=hospital),position=position_dodge(
 ```
 
 
-### 1.6. Evolución de nuevos de hospitalizados por dia
+### Evolución de nuevos de hospitalizados por dia
 
 ```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE}
 
@@ -170,7 +173,7 @@ g5 + geom_text(aes(y=hospital_nuevos,label=hospital_nuevos),position=position_do
 
 ```
 
-### 1.7. Evolución de personas en UCI 
+### Evolución de personas en UCI 
 
 ```{r UCI, warning=FALSE, echo=FALSE,eval=TRUE}
 ucidata<-casos[!is.na(casos$uci_uso),]
@@ -195,12 +198,16 @@ uci_semana%>%
 
 
 
-### 1.9. Evolución de los casos positivos activos
+### Evolución de los casos positivos activos
 
 <p>
 <div style="text-align:justify"> El número de casos activos es registrada descontando de los casos confirmados al número de muertos y los pacientes recuperados. Esta cifra ha variado en la tendencia por un aumento considerable en el número de recuperados. </div>
 </p>
 
+<p>
+<div style="text-align:center">
+<i> Casos activos =  Total de positivos detectados - (Total de fallecidos + Total de recuperados) </i>
+</p>
 
 ```{r, warning=FALSE,echo=FALSE,eval=TRUE}
 
@@ -230,7 +237,7 @@ g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(
 
 
 <p>
-<div style="text-align:right"> Datos actualizados al 03/05/2020 </div>
+<div style="text-align:right"> Datos actualizados al 06/05/2020 </div>
 </p>
 
 
