@@ -104,7 +104,7 @@ m_base + scale_fill_gradient(low="lightblue", high ="darkblue") + guides(fill=gu
 
 
 
-```{r}
+```{r, eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE}
 library(rio)
 library(sp)
 library(geojsonio)
