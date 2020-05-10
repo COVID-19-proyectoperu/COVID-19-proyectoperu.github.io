@@ -102,9 +102,60 @@ m_base=ggplot(peru_regiones) + geom_sf(aes(fill = EJECUTADO)) +theme_classic()
 m_base + scale_fill_gradient(low="lightblue", high ="darkblue") + guides(fill=guide_legend(title="Porcentaje ejecutado"))+ labs(title="Transferencias por el COVID-19 para los GR (% ejecutado)",caption = "Fuente: Consulta Amigable - MEF. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 ```
 
-<p><img src="subnacional_files/figure-html/mapa_interactivo.PNG" /><!-- --></p>
 
-Para conocer la situación a nivel regional: [Mapa interactivo de Gobiernos Regionales](casos_files/figure-html/mapa.html)
+
+```{r}
+library(rio)
+library(sp)
+library(geojsonio)
+library(rgdal)
+library(spdep)
+library(pgirmess)
+library(gstat)
+library(maps)
+library(rgeos) 
+library(gtable)
+library(scales)
+library(ggplot2)
+library(rgdal)
+library(maptools)
+library(Matrix)
+library(LearnBayes)
+library(spatstat)
+library(googleVis)
+library(plyr)
+library(maptools)
+library(leaflet)
+library(htmlwidgets)
+library(devtools)
+
+dep <- readOGR(dsn="/cloud/project/Mapa_Covid",layer="gadm36_PER_1")
+datos_regional1="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZPEarncXxE3lFMD8Tp4MahTcc-hMw2XdAbn5nSPLFwvM-6YoAv3l05t9ggK0bv-/pub?gid=1241161277&single=true&output=csv"
+datos_regional1<-as.data.frame(read.csv(datos_regional1))
+
+mapacondata=merge(dep,datos_regional1)#merge de la base con el mapa
+
+popup <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",
+      "<b>", "Presupesto Ejecutado: ", "</b>", as.character(mapacondata$presupuesto_covid_mapa), "<br>",
+      "<b>", "Casos Positivos: ", "</b>", as.character(mapacondata$casos_positivos), "<br>",
+      "<b>", "Muestras: ", "</b>", as.character(mapacondata$muestras_regionales), "<br>")
+
+palfac <- colorFactor(palette=c("#fee0d2","#fc9272","#de2d26"), domain = mapacondata$casos_pruebas_mapa_categorias)
+
+mapa <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac(mapacondata$casos_pruebas_mapa_categorias), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup) %>%
+  addLegend(position = "topright", pal = palfac, values = ~mapacondata$casos_pruebas_mapa_categorias,
+            title = "% de casos positivos por región") 
+mapa
+
+#<p><img src="subnacional_files/figure-html/mapa_interactivo.PNG" /><!-- --></p>
+
+#Para conocer la situación a nivel regional: [Mapa interactivo de Gobiernos Regionales](casos_files/figure-html/mapa.html)
+```
+
 
 <p>
 <div style="text-align:right"> Datos actualizados al 03/05/2020. Mapa elaborado por Manuel Ponte.</div>
@@ -181,5 +232,56 @@ w
 
 
 ### 3.8 Buenas practicas a nivel subnacional
+```
+
+```{r, include=FALSE}
+googlelink="https://docs.google.com/spreadsheets/d/e/2PACX-1vSmydQXYpaS6GGfV41GxItRYuKRBnYWJNZrky0yegSN95X_sLgraIpxaTabVogHMACwsXC-wABASs2C/pub?gid=0&single=true&output=csv"
+
+googledata=as.data.frame(read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmydQXYpaS6GGfV41GxItRYuKRBnYWJNZrky0yegSN95X_sLgraIpxaTabVogHMACwsXC-wABASs2C/pub?gid=0&single=true&output=csv"))
+
+
+view(googledata)
+
+retail=data.frame(googledata$pais,googledata$region,googledata$date,googledata$retail)
+
+retaildata<-retail[!is.na(retail$googledata.retail),]
+retaildata2=subset(retaildata , googledata.region!="Peru")
+retaildata2$googledata.date<-as.Date(retaildata2$googledata.date)
+
+retaildata2 %>% ggplot(aes(x=googledata.date, y=googledata.retail, color=googledata.region)) +  geom_line( size=0.8) + theme_classic()    + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+ theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número acumulado de instrumentos empleados")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+farmacia=data.frame(googledata$pais,googledata$region,googledata$date,googledata$farmacia)
+
+farmaciadata<-farmacia[!is.na(farmacia$googledata.farmacia),]
+farmaciadata2=subset(farmaciadata , googledata.region!="Peru")
+farmaciadata2$googledata.date<-as.Date(farmaciadata2$googledata.date)
+
+farmaciadata2 %>% ggplot(aes(x=googledata.date, y=googledata.farmacia, color=googledata.region)) +  geom_line( size=0.8) + theme_classic() 
+
+
+casa=data.frame(googledata$pais,googledata$region,googledata$date,googledata$residencia)
+
+casadata<-casa[!is.na(casa$googledata.residencia),]
+casadata2=subset(casadata , googledata.region!="Peru")
+casadata2$googledata.date<-as.Date(casadata2$googledata.date)
+
+casadata2 %>% ggplot(aes(x=googledata.date, y=googledata.residencia, color=googledata.region)) +  geom_line( size=0.8) + theme_classic() + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+ theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número acumulado de instrumentos empleados")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+
+library(foreign)
+mercado=as.data.frame(read.spss("mercados.sav"))
+str(mercado$P52_1)
+round(prop.table(table(mercado$PROVINCIA,mercado$P52_1),1)*100,digits=2)
+
+mercadolima=subset(mercado, CCDD=="15" & CCPP=="01")
+
+str(mercado)
+
+#install.packages("descr")
+library(descr)
+t1<-crosstab(mercadolima$DISTRITO,mercadolima$P52_1,prop.r = T,plot = F)
+distritos<-levels(mercadolima$DISTRITO)
+str(t1)
+distritos<-t1$ColData
 ```
 
