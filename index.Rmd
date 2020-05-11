@@ -1,23 +1,60 @@
 ---
 title: 'Decisiones públicas del Estado Peruano frente al COVID-19'
 output: html_document
+fontsize: 48pt
 ---
 
+## ¿Cómo surge este portal?
+
 <p>
-<div style="text-align:justify"> Este portal es un esfuerzo conjunto para realizar un monitoreo de las decisiones políticas adoptadas por el gobierno peruano en respuesta a la pandemia del nuevo coronavirus (SARS-CoV-2). El objetivo principal es la aplicación de una serie de conceptos para el estudio de políticas públicas como instrumentos de políticas, conflictividad social, redes de coordinación, agenda de problemas públicos, entre otros. Parte de la idea de construir un repositorio de las medidas adoptadas durante la emergencia sanitaria para la reflexión sobre la respuesta del Estado Peruano. </div>
+<div style="text-align:justify"> Este portal es un esfuerzo conjunto para realizar un monitoreo de las decisiones políticas adoptadas por el gobierno peruano en respuesta a la pandemia del nuevo coronavirus (SARS-CoV-2). Dicho esfuerzo se complementa con la aplicación de una serie de conceptos para el estudio de políticas públicas como instrumentos de políticas, conflictividad social, redes de coordinación, agenda de problemas públicos, entre otros.     
+
+El objetivo final es construir un repositorio de las medidas adoptadas, acciones e información durante la emergencia sanitaria para la reflexión sobre la respuesta del Estado Peruano y que sea de utilidad para estudiantes y profesionales en la elaboración de investigaciones u otros proyectos. </div>
 </p>
 
 
-#### ¿Qué encontrarás en este portal?
 
-1. [Evolución del COVID-19 en el Perú](https://covid-19-proyectoperu.github.io/casos.html)
+## ¿Qué encontrarás en este portal?
 
-2. [Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)
+<html>
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+  border: 1px solid #dddddd;
+}
+th, td {
+  padding: 8px;
+  text-align: justify;
+  font-family: arial, sans-serif;
+  font-size:120%
+}
+</style>
+</head>
+<body>
 
-3. [Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)
+<table style="width:100%">
+  <tr>
+    <td><div align="center">[Evolución del COVID-19 en el Perú](https://covid-19-proyectoperu.github.io/casos.html) </div> <br> Esta sección presenta una serie de indicadores para responder a la pregunta:<br>¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?</td>
+    <td><div align="center"><img src="casos_files/figure-html/unnamed-chunk-4-1.png"><!-- --></div></td>
+  </tr>
+  <tr>
+    <td> <div align="center">[Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)</div> <br>Esta sección registra la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19. <br> Este seguimiento cuenta con temas como: trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas.  
+    </td>
+    <td><div align="center"><img src="nacional_files/figure-html/midis.png"><!-- --></div></td>
+  </tr>
+  <tr>
+    <td><div align="center">[Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)</div><br>Esta sección registra la propagación de casos positivos, muestras realizadas, ejecución de presupuesto, entre otros datos de interes desagragados a nivel de gobierno regional y municipalidades.</td>
+    <td><div align="center"><img src="subnacional_files/figure-html/mapa_interactivo.PNG"></td>
+  </tr>
+</table>
 
+</body>
+</html>
 
-#### ¿Quienes trabajan en este portal?
+<br>
+
+## ¿Quienes somos los "Politólogos en cuarentena"?
 
 * Seguimiento nacional:
   
@@ -39,13 +76,13 @@ output: html_document
   Manuel Ponte Torrel  
 
 
- 
-### Para sumarse al equipo
+### ¿Cómo sumarse al equipo?
 
 <p>
 <div style="text-align:justify"> Este portal esta abierto a toda colaboración, aquellos que tengan interes en apoyar en el seguimiento de los datos de alguna sección (datos, nacional, sub-nacional) y/o proponer agregar apartados en las secciones. Para sumarse en el proyecto pueden escribir a [Alonso Tovar](mailto:a.tovar1498@gmail.com). Los colaboradores deben estar disponibles para una constante actualizacion de la información del portal.</div>
 </p>
 
+### ¿Cómo hacernos llegar tus comentarios?
 
 <p>
 <div style="text-align:justify"> Para solicitar información, reportar fallas y/o contribuir con comentarios de mejora, comunicarse al correo electrónico: [**covid19.proyectoperu@gmail.com**](mailto:covid19.proyectoperu@gmail.com) </div>
