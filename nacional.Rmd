@@ -301,6 +301,10 @@ Su importancia radica en que son aquellos funcionarios quienes estan implementan
 
 #### Personal de enfermería
 
+> Según la información publicada por el Colegio de Enfermeros del Perú, habrian 1278 de su personal contagiado con COVID-19 a nivel nacional. (*06 de mayo del 2020*)
+
+<p><img src="nacional_files/figure-html/CEP.jpg"><!-- --></p>
+
 > El Colegio de Enfermeros del Perú ha solicitado a Contraloría General de la República la fiscalización dentro de los establecimientos de salud, por el incumplimiento de las medidas de protección, seguridad y dotación de EPP para el personal de Enfermería que atiende pacientes contagiados por Covid-19. (*30 de abril del 2020*)
 
 > Monica Rios (Decana del Colegio de Enfermeros del Perú): "Quien atiende esta expuesto a contagiarse, ya tenemos 350 enfermeras contagiadas" (*26 de abril del 2020*)
@@ -308,9 +312,14 @@ Su importancia radica en que son aquellos funcionarios quienes estan implementan
 
 #### Personal médico
 
+> Según la infomación publicada por el Colegio de Médicos del Perú, habrian 313 médicos contagiados con COVID-19 a nivel nacional, 13 en UCI y 1 fallecido.(*24 de abril del 2020*)
+
 <p><img src="casos_files/figure-html/medicos.jpg" /width=360 height=480><!-- --></p>
 
+
 #### Policias
+
+> Gaston Rodriguez (Ministro del Interior): 46 policías han muerto por la COVID-19, entre 3.873 agentes que se contagiaron mientras patrullaban las calles para hacer cumplir la cuarentena y el estado de emergencia en el Perú (RPP, 2020). "Tenemos 360 policías hospitalizados y 17 en cuidados intensivos" (*06 de mayo del 2020*)
 
 > Max Iglesias (Comandante General de la PNP): "Alrededor de más de dos mil policías contagiados y 24 policias que lamentablemente han fallecido." (*29 de abril del 2020*) 
 
@@ -318,6 +327,12 @@ Su importancia radica en que son aquellos funcionarios quienes estan implementan
 
 > Walter Martos (Ministro de Defensa): "Hasta el momento han fallecido 6 militares de las Fuerzas Armadas (FF.AA.) a causa del COVID-19 y otros 349 están contagiados en el país" (*29 de abril del 2020*)
 
+#### Trabajadores de limpieza pública
+
+> Diario La República: Los trabajadores del área de limpieza pública realizaron una singular protesta en las afueras de la Municipalidad Distrital de Castilla, demandando de rodillas al alcalde, José Aguilar Silva, para que les realicen las pruebas de descarte de coronavirus.
+Ellos señalan que la mayoría del personal no cuenta con la protección para cumplir con sus labores del recojo de residuos sólidos, pues temen contraer el virus y poner en riesgo su salud y la de sus familias. (*05 de mayo del 2020*)
+
+> El portal "Salud con Lupa" informó que "la mañana del jueves 9 abril, un trabajador de la Empresa de Servicio de Limpieza Pública del Callao falleció a causa de la infección de COVID-19. Sus compañeros dijeron que el contagio ocurrió mientras cumplía sus labores de recojo de basura de las casas y calles del primer puerto". (*09 de abril del 2020*)
 
 ### Protestas sociales vinculadas al Estado de Emergencia
 

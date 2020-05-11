@@ -8,7 +8,7 @@ output: html_document
 </p>
 
 
-##### ¿Qué encontrarás en este portal?
+#### ¿Qué encontrarás en este portal?
 
 1. [Evolución del COVID-19 en el Perú](https://covid-19-proyectoperu.github.io/casos.html)
 
@@ -17,7 +17,7 @@ output: html_document
 3. [Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)
 
 
-##### Responsables del portal
+#### ¿Quienes trabajan en este portal?
 
 * Seguimiento nacional:
   
