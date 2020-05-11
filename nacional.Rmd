@@ -266,6 +266,8 @@ wordcloud(minjus_df_wd$term,minjus_df_wd$freq,max.words=100,colors = brewer.pal(
 
 #### Tweets de Ministerios en el contexto de Estado de Emergencia
 
+<p><img src="nacional_files/figure-html/hist_twitter.png" /><!-- --></p>
+
 ##### Palabras más frecuentes: @MINSA_Peru
 
 <p><img src="nacional_files/figure-html/minsa.png" /><!-- --></p>
