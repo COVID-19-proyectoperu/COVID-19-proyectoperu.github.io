@@ -5,84 +5,6 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```
-
-### Gobiernos Regionales
-
-#### Mapa de situación de los Gobiernos Regionales
-
-```{r, include=FALSE}
-#### Datos sobre casos y muestras realizadas
-
-### cargar datos
-
-#regioneslink="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZPEarncXxE3lFMD8Tp4MahTcc-hMw2XdAbn5nSPLFwvM-6YoAv3l05t9ggK0bv-/pub?gid=1102095429&single=true&output=csv"
-
-#regiones=as.data.frame(read.csv(regioneslink))
-
-
-
-### contruir tabla
-#install.packages("dplyr")
-#library(dplyr)
-#regiones%>%
-  #dplyr::select("Región"="region","Muestras realizadas"="muestras_regionales", "Positivos"="casos_positivos", "Muestras x 100 mil hab."="x_100_muestras","Positivos x 100 mil hab."="x_100_positivos","Proporción de positivos"="x_contagio")%>%
-  #DT::datatable(
-    #options = list(pageLength = 10, 
-                   #lengthMenu = c(10, 15, 20),
-                   #language = list(lengthMenu = "Mostrar _MENU_ entradas",
-                                   #info ="Mostrando _START_ al _END_ de _TOTAL_ entradas",
-                                   #search = "Buscar:",
-                                   #paginate = list(previous = "Anterior",
-                                                #   'next' = "Siguiente"))
-                  # ),
-#    rownames = FALSE
- # )
-
-#<p>
-#<div style="text-align:right"> Datos actualizados al 04/05/2020. Fuente: Sala Situacional-MINSA </div>
-#</p>
-
-```
-
-```{r, include=FALSE}
-
-#### Transferencias a Gobiernos Regionales y su ejecución
-### cargar datos
-
-#regioneslink="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZPEarncXxE3lFMD8Tp4MahTcc-hMw2XdAbn5nSPLFwvM-6YoAv3l05t9ggK0bv-/pub?gid=1102095429&single=true&output=csv"
-
-#regiones=as.data.frame(read.csv(regioneslink, dec = ","))
-
-#transferencias<-regiones[!is.na(regiones$x_ejecucion_2019),]
-
-
-#transferencias$ejecutado=transferencias$transferencias_covid*transferencias$x_presupuesto_covid 
-
-### contruir tabla
-#install.packages("dplyr")
-#library(dplyr)
-#transferencias%>%
-  #dplyr::select("Región"="region","Transferencias"="transferencias_covid", "Presupuesto ejecutado"="ejecutado", "Porcentaje de presupuesto ejecutado"="x_presupuesto_covid")%>%
-#  DT::datatable(
- #   options = list(pageLength = 10, 
-  #lengthMenu = c(10, 15, 20),
-   #                language = list(lengthMenu = "Mostrar _MENU_ entradas",
-    #                               info ="Mostrando _START_ al _END_ de _TOTAL_ entradas",
-     #                              search = "Buscar:",
-      #                             paginate = list(previous = "Anterior",
-       #                                            'next' = "Siguiente"))
-        #           ),
-#    rownames = FALSE
- # )
-#<p>
-#<div style="text-align:right"> Datos actualizados al 03/05/2020. Fuente: Consulta amigable - MEF </div>
-#</p>
-
-```
-
-
-```{r, include=FALSE}
 #install.packages("")
 library(rio)
 library(sp)
@@ -109,10 +31,11 @@ library(htmlwidgets)
 library(devtools)
 ```
 
+### Gobiernos Regionales
 
-```{r, include=FALSE}
+#### Mapa de situación de casos positivos a nivel regional
 
-
+```{r Casos Regionales, include=FALSE}
 dep <- readOGR(dsn="/cloud/project/Mapa_Covid",layer="gadm36_PER_1")
 datos_regional1="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZPEarncXxE3lFMD8Tp4MahTcc-hMw2XdAbn5nSPLFwvM-6YoAv3l05t9ggK0bv-/pub?gid=1241161277&single=true&output=csv"
 datos_regional1<-as.data.frame(read.csv(datos_regional1,sep = ","))
@@ -121,9 +44,9 @@ mapacondata=merge(dep,datos_regional1)#merge de la base con el mapa
 
 popup <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",  
       "<b>", "Casos Positivos: ", "</b>", as.character(mapacondata$casos_positivos), "<br>",
-      "<b>", "Muestras: ", "</b>", as.character(mapacondata$muestras_regionales), "<br>",
-      "<b>", "% Positivos: ", "</b>", as.character(mapacondata$casos_x_pruebas_mapa), "<br>",
-      "<b>", "Presupuesto Ejecutado: ", "</b>", as.character(mapacondata$presupuesto_covid_mapa), "<br>")
+      "<b>", "Total de Muestras: ", "</b>", as.character(mapacondata$muestras_regionales), "<br>",
+      "<b>", "% Positivos: ", "</b>", as.character(mapacondata$casos_x_pruebas_mapa), "<br>"
+      )
 
 palfac <- colorFactor(palette=c("#fee0d2","#fc9272","#de2d26"), domain = mapacondata$casos_pruebas_mapa_categorias)
 
@@ -134,23 +57,100 @@ mapa <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas
               label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup) %>%
   addLegend(position = "topright", pal = palfac, values = ~mapacondata$casos_pruebas_mapa_categorias,
             title = "% de casos positivos por región")
-
-#<p><img src="subnacional_files/figure-html/mapa_interactivo.PNG" /><!-- --></p>
-
-#Para conocer la situación a nivel regional: [Mapa interactivo de Gobiernos Regionales](casos_files/figure-html/mapa.html)
-
 ```
 
 
-```{r eval=TRUE, echo=FALSE}
+```{r Mapa casos, eval=TRUE, echo=FALSE}
 mapa
 ```
 
-<p>
-<div style="text-align:right"> Datos actualizados al 05/05/2020. Mapa elaborado por Manuel Ponte.</div>
-</p>
+#### Mapa de situación de fallecidos a nivel regional
+
+```{r fallecidos, include=FALSE}
+popup2 <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",  
+      "<b>", "Número de fallecidos: ", "</b>", as.character(mapacondata$fallecidos), "<br>",
+      "<b>", "Mortalidad: ", "</b>", as.character(mapacondata$mortalidad), "<br>"
+      )
+
+palfac2 <- colorFactor(palette=c("#D9D9D9","#737373","darkblue","darkred"), domain = mapacondata$mortalidad_mapa_categorias)
+
+mapa2 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac2(mapacondata$mortalidad_mapa_categorias), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup2) %>%
+  addLegend(position = "topright", pal = palfac2, values = ~mapacondata$mortalidad_mapa_categorias,
+            title = "% de mortalidad")
+```
 
 
+```{r mapa fallecidos, echo=FALSE,eval=TRUE}
+mapa2
+```
+
+
+#### Mapa sobre la ejecución de transferencias para el COVID-19 a nivel regional
+
+```{r presupuesto, include=FALSE}
+popup3 <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",  
+      "<b>", "Presupuesto transferido: ", "</b>", as.character(mapacondata$transferencias_covid), "<br>",
+      "<b>", "Porcentaje ejecutado: ", "</b>", as.character(mapacondata$presupuesto_covid_mapa), "<br>"
+      )
+
+palfac3 <- colorFactor(palette=c("red","orange","yellow","lightgreen","green"), domain = mapacondata$mapa_covid)
+
+mapa3 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac3(mapacondata$mapa_covid), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup3) %>%
+  addLegend(position = "topright", pal = palfac3, values = ~mapacondata$mapa_covid,
+            title = "% de ejecución")
+```
+
+
+```{r mapa presupuesto, echo=FALSE,eval=TRUE}
+mapa3
+```
+
+
+
+Mapas actualizados al 11 de mayo del 2020. Fuente: Base de Seguimiento Sub-nacional. Elaborado para "Politólogos en cuarentena".
+
+#### Situación sobre movilidad de la población a nivel regional
+
+```{r, echo=FALSE,eval=TRUE}
+googlelink="https://docs.google.com/spreadsheets/d/e/2PACX-1vSmydQXYpaS6GGfV41GxItRYuKRBnYWJNZrky0yegSN95X_sLgraIpxaTabVogHMACwsXC-wABASs2C/pub?gid=0&single=true&output=csv"
+
+googledata=as.data.frame(read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmydQXYpaS6GGfV41GxItRYuKRBnYWJNZrky0yegSN95X_sLgraIpxaTabVogHMACwsXC-wABASs2C/pub?gid=0&single=true&output=csv"))
+
+
+retail=data.frame(googledata$pais,googledata$region,googledata$date,googledata$retail)
+
+retaildata<-retail[!is.na(retail$googledata.retail),]
+retaildata2=subset(retaildata , googledata.region!="Peru")
+retaildata2$googledata.date<-as.Date(retaildata2$googledata.date)
+
+
+retaildata2 %>% ggplot(aes(x=googledata.date, y=googledata.retail, color=googledata.region)) +  geom_line( size=0.8) + theme_classic()  + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+ theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(title = "Evolución de la mobilidad en negocios retail",caption = "Fuente: Google Mobility. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Movilidad hacia negocios retail")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+farmacia=data.frame(googledata$pais,googledata$region,googledata$date,googledata$farmacia)
+
+farmaciadata<-farmacia[!is.na(farmacia$googledata.farmacia),]
+farmaciadata2=subset(farmaciadata , googledata.region!="Peru")
+farmaciadata2$googledata.date<-as.Date(farmaciadata2$googledata.date)
+
+farmaciadata2 %>% ggplot(aes(x=googledata.date, y=googledata.farmacia, color=googledata.region)) +  geom_line( size=0.8) + theme_classic() + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+ theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(title = "Evolución de la mobilidad en farmacias",caption = "Fuente: Google Mobility. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Movilidad hacia farmacias")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
+
+
+casa=data.frame(googledata$pais,googledata$region,googledata$date,googledata$residencia)
+
+casadata<-casa[!is.na(casa$googledata.residencia),]
+casadata2=subset(casadata , googledata.region!="Peru")
+casadata2$googledata.date<-as.Date(casadata2$googledata.date)
+
+casadata2 %>% ggplot(aes(x=googledata.date, y=googledata.residencia, color=googledata.region)) +  geom_line( size=0.8) + theme_classic() + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+ theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(title = "Evolución de la mobilidad en zonas residenciales",caption = "Fuente: Google Mobility. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Estancia en zonas residenciales")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
+```
 
 
 ```{r, include=FALSE}
@@ -214,54 +214,7 @@ mapa
 ### 3.8 Buenas practicas a nivel subnacional
 ```
 
-```{r, include=FALSE}
-googlelink="https://docs.google.com/spreadsheets/d/e/2PACX-1vSmydQXYpaS6GGfV41GxItRYuKRBnYWJNZrky0yegSN95X_sLgraIpxaTabVogHMACwsXC-wABASs2C/pub?gid=0&single=true&output=csv"
-
-googledata=as.data.frame(read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmydQXYpaS6GGfV41GxItRYuKRBnYWJNZrky0yegSN95X_sLgraIpxaTabVogHMACwsXC-wABASs2C/pub?gid=0&single=true&output=csv"))
 
 
-view(googledata)
 
-retail=data.frame(googledata$pais,googledata$region,googledata$date,googledata$retail)
-
-retaildata<-retail[!is.na(retail$googledata.retail),]
-retaildata2=subset(retaildata , googledata.region!="Peru")
-retaildata2$googledata.date<-as.Date(retaildata2$googledata.date)
-
-retaildata2 %>% ggplot(aes(x=googledata.date, y=googledata.retail, color=googledata.region)) +  geom_line( size=0.8) + theme_classic()    + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+ theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número acumulado de instrumentos empleados")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
-
-farmacia=data.frame(googledata$pais,googledata$region,googledata$date,googledata$farmacia)
-
-farmaciadata<-farmacia[!is.na(farmacia$googledata.farmacia),]
-farmaciadata2=subset(farmaciadata , googledata.region!="Peru")
-farmaciadata2$googledata.date<-as.Date(farmaciadata2$googledata.date)
-
-farmaciadata2 %>% ggplot(aes(x=googledata.date, y=googledata.farmacia, color=googledata.region)) +  geom_line( size=0.8) + theme_classic() 
-
-
-casa=data.frame(googledata$pais,googledata$region,googledata$date,googledata$residencia)
-
-casadata<-casa[!is.na(casa$googledata.residencia),]
-casadata2=subset(casadata , googledata.region!="Peru")
-casadata2$googledata.date<-as.Date(casadata2$googledata.date)
-
-casadata2 %>% ggplot(aes(x=googledata.date, y=googledata.residencia, color=googledata.region)) +  geom_line( size=0.8) + theme_classic() + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+ theme(axis.text.x =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-15")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-15")), y= 10, label='Inicio del Estado de emergencia'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-18")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-18")), y= 10, label='Inmovilizacion Social Obligatoria'), size=2.8, angle=90, vjust=-0.4, hjust=0,color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-03-31")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-03-31")), y= 10, label='Primera prórroga hasta el 12 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black")+geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-13")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-13")), y= 10, label='Segunda prórroga hasta el 26 de abril '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-26")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-26")), y= 10, label='Tercera prórroga hasta el 10 de mayo '), size=2.8, angle=90, vjust=-0.4, hjust=0, color="black") + labs(caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número acumulado de instrumentos empleados")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
-
-
-library(foreign)
-mercado=as.data.frame(read.spss("mercados.sav"))
-str(mercado$P52_1)
-round(prop.table(table(mercado$PROVINCIA,mercado$P52_1),1)*100,digits=2)
-
-mercadolima=subset(mercado, CCDD=="15" & CCPP=="01")
-
-str(mercado)
-
-#install.packages("descr")
-library(descr)
-t1<-crosstab(mercadolima$DISTRITO,mercadolima$P52_1,prop.r = T,plot = F)
-distritos<-levels(mercadolima$DISTRITO)
-str(t1)
-distritos<-t1$ColData
-```
 
