@@ -21,7 +21,30 @@ El objetivo final es construir un repositorio de las medidas adoptadas, acciones
 <div style="text-align:justify">Esta sección presenta una serie de indicadores para responder a la pregunta: **¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?** </div>
 </p>
 
-<div align="center"><img src="casos_files/figure-html/unnamed-chunk-4-1.png"/width=700 height=500><!-- --></div>
+```{r, include=FALSE}
+#install.packages("ggplot")
+library(ggplot2)
+#install.packages("dplyr")
+library(dplyr)
+```
+
+
+```{r, echo=FALSE,eval=TRUE}
+### Cargar la data
+
+casosperu="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=1165383620&single=true&output=csv"
+
+casos=as.data.frame(read.csv(casosperu,header=T))
+
+### Lectura adecuada
+casos$casos_positivos<-as.numeric(casos$casos_positivos)
+casos$dia<-as.Date(casos$dia)
+### datos
+
+g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
+```
 
 [Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)    
 
