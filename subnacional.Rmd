@@ -60,7 +60,7 @@ mapa <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas
 ```
 
 
-```{r Mapa casos, eval=TRUE, echo=FALSE}
+```{r Mapa casos, eval=TRUE, echo=FALSE, fig.width=4}
 mapa
 ```
 
@@ -84,7 +84,7 @@ mapa2 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
 ```
 
 
-```{r mapa fallecidos, echo=FALSE,eval=TRUE}
+```{r mapa fallecidos, echo=FALSE,eval=TRUE,fig.width=4}
 mapa2
 ```
 
@@ -109,7 +109,7 @@ mapa3 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
 ```
 
 
-```{r mapa presupuesto, echo=FALSE,eval=TRUE}
+```{r mapa presupuesto, echo=FALSE,eval=TRUE,fig.width=4}
 mapa3
 ```
 
