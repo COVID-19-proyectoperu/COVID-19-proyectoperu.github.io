@@ -4,7 +4,7 @@ output: html_document
 fontsize: 48pt
 ---
 
-## ¿Cómo surge este portal?
+# ¿Cómo surge este portal?
 
 <p>
 <div style="text-align:justify"> Este portal es un esfuerzo conjunto para realizar un monitoreo de las decisiones políticas adoptadas por el gobierno peruano en respuesta a la pandemia del nuevo coronavirus (SARS-CoV-2). Dicho esfuerzo se complementa con la aplicación de una serie de conceptos para el estudio de políticas públicas como instrumentos de políticas, conflictividad social, redes de coordinación, agenda de problemas públicos, entre otros.     
@@ -13,53 +13,33 @@ El objetivo final es construir un repositorio de las medidas adoptadas, acciones
 </p>
 
 
+# ¿Qué encontrarás en este portal?
 
-## ¿Qué encontrarás en este portal?
+[Evolución del COVID-19 en el Perú](https://covid-19-proyectoperu.github.io/casos.html)    
 
-<html>
-<head>
-<style>
-table, th, td {
-  border-collapse: collapse;
-  border: 1px solid #dddddd;
-}
-th, td {
-  padding: 8px;
-  text-align: justify;
-  font-family: arial, sans-serif;
-  font-size:120%
-}
-</style>
-</head>
-<body>
+<p>
+<div style="text-align:justify">Esta sección presenta una serie de indicadores para responder a la pregunta: **¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?** </div>
+</p>
 
-<table style="width:100%">
-  <tr>
-    <td><div align="center">[Evolución del COVID-19 en el Perú](https://covid-19-proyectoperu.github.io/casos.html) </div> <br> Esta sección presenta una serie de indicadores para responder a la pregunta:<br>¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?</td>
-  </tr>
-  <tr>
-    <td><div align="center"><img src="casos_files/figure-html/unnamed-chunk-4-1.png"/width=480 height=360><!-- --></div></td>
-  </tr>
-  <tr>
-    <td> <div align="center">[Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)</div> <br>Esta sección registra la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19. <br> Este seguimiento cuenta con temas como: trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas.  
-    </td>
-  </tr>
-  <tr>
-    <td><div align="center"><img src="nacional_files/figure-html/midis.png"/width=480 height=360><!-- --></div></td>
-  </tr>
-  <tr>
-    <td><div align="center">[Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)</div><br>Esta sección registra la propagación de casos positivos, muestras realizadas, ejecución de presupuesto, entre otros datos de interes desagragados a nivel de gobierno regional y municipalidades.</td>
-  </tr>
-  <tr>
-    <td><div align="center"><img src="subnacional_files/figure-html/mapa_interactivo.PNG"/width=480 height=360></td>
-  </tr>
-</table>
+<div align="center"><img src="casos_files/figure-html/unnamed-chunk-4-1.png"/width=700 height=500><!-- --></div>
 
-</body>
-</html>
+[Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)    
 
-<br>
+<p>
+<div style="text-align:justify"> Esta sección registra la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19. Este seguimiento cuenta con temas como: trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas. </div>
+</p>    
 
+<div align="center"><img src="nacional_files/figure-html/midis.png"><!-- --></div>
+
+[Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)
+
+<p>
+<div style="text-align:justify"> Esta sección registra la propagación de casos positivos, muestras realizadas, ejecución de presupuesto, entre otros datos de interes desagregados a nivel de gobierno regional y municipalidades.</div>
+</p>
+
+<div align="center"><img src="subnacional_files/figure-html/mapa_interactivo.PNG"></div>  
+<br>    
+    
 ## ¿Quienes somos los "Politólogos en cuarentena"?
 
 * Seguimiento nacional:
