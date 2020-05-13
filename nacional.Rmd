@@ -209,19 +209,80 @@ Para ver la leyenda de los tipos de actores por colores de los nodos <a href = "
 </p>
 
 
-```{r pendiente 2, echo=FALSE,eval=TRUE,message=FALSE,warning=FALSE}
-
-#install.packages("networkD3")
+```{r codigo redes, echo=FALSE,eval=TRUE,message=FALSE,warning=FALSE, fig.width=3.5}
+library(tidygraph)
 library(networkD3)
 library(igraph)
+library(visNetwork)
 
-redlink="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=542324663&single=true&output=csv"
+actoresLink="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=1833492047&single=true&output=csv"
+enlacesLink="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=542324663&single=true&output=csv"
 
-red_nacional<-as.data.frame(read.csv(redlink))
 
-red_nacional<-red_nacional[-c(3)]
+actores<-read.csv(actoresLink)
+actores<-actores[, c(1:3)]
+colnames(actores) <- c("id","Actor","Nivel")  
 
-#simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black", width=360, height=480) 
+
+enlaces<-read.csv(enlacesLink)
+colnames(enlaces) <- c("from","to","type.relation")
+
+visNetwork(actores, enlaces, width = "100%")
+
+visNetwork(actores, enlaces, width = "100%") %>% 
+  visNodes(shape = "square", 
+           color = list(background = "lightblue", 
+                        border = "darkblue",
+                        highlight = "yellow"),
+           shadow = list(enabled = TRUE, size = 0)) %>%
+  visLayout(randomSeed = 12) 
+
+actores1 <- data.frame(actores, 
+                    shape = ifelse(actores$Nivel=="Nacional","circle", "square"))
+actores1<-actores1 %>% rename(label=Actor) 
+actores1<-actores1 %>% mutate(font.size = 10*3)
+
+visNetwork(actores1, enlaces, width = "100%" ,physics=T, idToLabel=T) %>% 
+  visNodes(color = list(background = "lightblue", 
+                        border = "darkblue",
+                        highlight = "yellow"),
+           shadow = list(enabled = TRUE, size = 10))  
+
+
+library(visNetwork)
+nodes <- data.frame(id = 1:10, 
+                    label = paste("Node", 1:10),                                 # labels
+                    group = c("GrA", "GrB"),                                     # groups 
+                    value = 1:10,                                                # size 
+
+                    title = paste0("<p><b>", 1:10,"</b><br>Node !</p>"),         # tooltip
+                    color = c("darkred", "grey", "orange", "darkblue", "purple"),# color
+                    shadow = c(FALSE, TRUE, FALSE, TRUE, TRUE))                  # shadow
+
+edges <- data.frame(from = sample(1:10,8), to = sample(1:10, 8),
+                    label = paste("Edge", 1:8),                                 # labels
+                    length = c(100,500),                                        # length
+                    arrows = c("to", "from", "middle", "middle;to"),            # arrows
+                    dashes = c(TRUE, FALSE),                                    # dashes
+                    title = paste("Edge", 1:8),                                 # tooltip
+                    smooth = c(FALSE, TRUE),                                    # smooth
+                    shadow = c(FALSE, TRUE, FALSE, TRUE))                       # shadow
+nodes <- nodes %>% mutate(font.size = (1:10)*3)
+
+visNetwork(nodes, edges, physics=T, idToLabel=T) 
+
+
+#redlink="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=542324663&single=true&output=csv"
+
+#red_nacional<-as.data.frame(read.csv(redlink))
+
+#red_nacional<-red_nacional[-c(3)]
+```
+
+
+```{r Red total, fig.width=3.5}
+#redtotal<-simpleNetwork(red_nacional,linkColour = "grey",opacity = 1,nodeColour = "black",) 
+#redtotal
 ```
 
 
