@@ -237,7 +237,7 @@ g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(
 
 
 <p>
-<div style="text-align:right"> Datos actualizados al 09/05/2020 </div>
+<div style="text-align:right"> Datos actualizados al 12/05/2020 </div>
 </p>
 
 

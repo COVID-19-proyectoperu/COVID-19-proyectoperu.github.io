@@ -47,7 +47,7 @@ Este seguimiento cuenta con **7 secciones**: Trayectoria de las decisiones, inst
 
 
 <p>
-Para visualizar la actualización de las medidas frente al COVID-19: [Base de Seguimiento Nacional](https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pubhtml?gid=31875411&single=true)
+Para visualizar la actualización de las medidas frente al COVID-19: [Base de Seguimiento Nacional](https://docs.google.com/spreadsheets/d/1lIJ9H9M5Vd8r7pGx8nHQzzYt_VXYrEFANp2Dhe9rtT8/edit?usp=sharing)
 </p>
 
 ```{r Trazabilidad de decisiones, echo=FALSE,eval=TRUE, warning=FALSE, fig.align='center'}
