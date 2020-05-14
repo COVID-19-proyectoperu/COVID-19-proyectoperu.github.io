@@ -70,8 +70,9 @@ mapa
 #### Mapa de situación de fallecidos a nivel regional
 
 ```{r fallecidos, include=FALSE}
-popup2 <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",  
+popup2 <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",
       "<b>", "Número de fallecidos: ", "</b>", as.character(mapacondata$fallecidos), "<br>",
+      "<b>", "Casos Positivos: ", "</b>", as.character(mapacondata$casos_positivos), "<br>",
       "<b>", "Mortalidad: ", "</b>", as.character(mapacondata$mortalidad), "<br>"
       )
 
@@ -131,7 +132,7 @@ mapa4 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
               highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
               label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup4) %>%
   addLegend(position = "topright", pal = palfac4, values = ~mapacondata$distribucion_EPP_mapa,
-            title = "Distribución de EPP")
+            title = "Distribución de unidades EPP")
 ```
 
 
@@ -239,6 +240,38 @@ casadata2 %>% ggplot(aes(x=googledata.date, y=googledata.residencia, color=googl
 ### 3.8 Buenas practicas a nivel subnacional
 ```
 
+
+### Noticias, demandas y pronunciamientos
+
+Este apartado fue construido a partir de la información publicada en plataformas web y que fueron recopiladas en el siguiente grupo de facebook: [COVID-19 PERÚ](https://www.facebook.com/groups/254907618858716/) creado por Carlos Andres Guevara.
+
+28/04
+
+> SALUD | Mayoría de casos de coronavirus en Puno son policías y personal de Salud. De los 66 casos confirmados de coronavirus en Puno, la mayoría son miembros de la Policía, el INPE y trabajadores de salud <a href = "https://larepublica.pe/sociedad/2020/04/27/mayoria-de-casos-de-coronavirus-en-puno-son-policias-y-personal-de-salud-lrsd/De/?fbclid=IwAR3czuENKOJJ3iGrPiB14gCpeWYVXymb-AwjUwHs2fBmtaoXnZ2jIpJrpas"> Aquí </a>
+
+
+> EDUCACIÓN | Alrededor de 4 mil docentes que laboraban en colegios privados de la región Arequipa se han quedado desempleados, según Rustbel Begazo Salazar, presidente de la Asociación de Instituciones Educativas Privadas de la región Arequipa (Asiepra) <a href = "https://larepublica.pe/sociedad/2020/04/28/cuarentena-4-mil-profesores-se-quedaron-sin-trabajo-en-arequipa-coronavirus-lrsd/"> Aquí </a>
+
+27/04
+
+> JUSTICIA |Los presos de los penales de Ancón 2 en Piedras Gordas, Castro Castro en San Juan de Luringancho, Huamancaca Chico en Junín se han amotinado en protesta por la falta de atención de las autoridades penitenciarias a los reclusos contagiadosiro dos cuerpos de los fallecidos por COVID-19, reportaron los familiares de los reclusos. <a href = "https://larepublica.pe/politica/2020/04/27/motines-en-penales-de-ancon-castro-castro-y-huamancaca-por-covid-19/"> Aquí </a> 
+
+> SALUD | El Agustino: Técnicos y enfermeros del hospital Hipólito Unanue exigen pagos de marzo y abril. <a href = "https://canaln.pe/actualidad/agustino-enfermeros-hospital-hipolito-unanue-protestaron-falta-pago-n412214"> Aquí </a> 
+
+> SALUD |El personal de salud del área de Emergencia del hospital de EsSalud protestó por falta de equipos de protección. Autoridades señalan que les otorgan todos los implementos para atención de pacientes. Unos 18 trabajadores dieron positivo al COVID-19.<a href = "https://publimetro.pe/actualidad/coronavirus-peru-trabajadores-de-emergencia-realizaron-planton-en-los-exteriores-del-hospital-almenara-cuarentena-estado-de-emergencia-covid-19-nndc-noticia/"> Aquí </a>
+
+
+> SALUD | Personal del Hospital Almanzor realiza plantón por falta de equipos de protección. <a href = "https://larepublica.pe/sociedad/2020/04/27/personal-del-hospital-almanzor-realiza-planton-por-falta-de-equipos-de-proteccion-coronavirus-hospital-almanzor-aguinaga-epp-enfermeras-salud-victor-zamora-lrnd/?fbclid=IwAR2NDMRTtxe-_oQ08TM8aiDsyOfVUICDr7Vq0L7tzmSB50aMF0enOr65l8k"> Aquí </a> 
+
+
+26/04
+
+> POBLACION INDÍGENA | La Federación de comunidades nativas de Purus - FECONAPU informó en sus redes sociales el fallecimiento del primer indígena amazónico por Covid-19, hoy 26 de abril, en Pucallpa, Ucayali. <a href = "https://www.facebook.com/orpioloreto/photos/a.791016591050813/1581044595381338/?type=3&theater"> Aquí </a> 
+
+
+25/04
+
+> SALUD | Pronunciamiento del Cuerpo Médico del Hospital de Emergencias Grau. <a href = "https://www.facebook.com/SinamssopOficial/posts/2549502585300883"> Aquí </a> 
 
 
 

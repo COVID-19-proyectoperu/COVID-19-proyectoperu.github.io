@@ -1,7 +1,7 @@
 ---
 title: 'Decisiones públicas del Estado Peruano frente al COVID-19'
 output: html_document
-fontsize: 48pt
+fontsize: 130%
 ---
 
 # ¿Cómo surge este portal?
@@ -15,38 +15,16 @@ El objetivo final es construir un repositorio de las medidas adoptadas, acciones
 
 # ¿Qué encontrarás en este portal?
 
-[Evolución del COVID-19 en el Perú](https://covid-19-proyectoperu.github.io/casos.html)    
+[Sección 1: Evolución del COVID-19 en el Perú](https://covid-19-proyectoperu.github.io/casos.html)    
 
 <p>
 <div style="text-align:justify">Esta sección presenta una serie de indicadores para responder a la pregunta: **¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?** </div>
 </p>
 
-```{r, include=FALSE}
-#install.packages("ggplot")
-library(ggplot2)
-#install.packages("dplyr")
-library(dplyr)
-```
+<div align="center"><img src="casos_files/figure-html/file3532f41cdba.gif" /></div>
 
 
-```{r, echo=FALSE,eval=TRUE}
-### Cargar la data
-
-casosperu="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=1165383620&single=true&output=csv"
-
-casos=as.data.frame(read.csv(casosperu,header=T))
-
-### Lectura adecuada
-casos$casos_positivos<-as.numeric(casos$casos_positivos)
-casos$dia<-as.Date(casos$dia)
-### datos
-
-g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
-
-g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
-```
-
-[Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)    
+[Sección 2: Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)    
 
 <p>
 <div style="text-align:justify"> Esta sección registra la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19. Este seguimiento cuenta con temas como: trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas. </div>
@@ -54,7 +32,7 @@ g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_do
 
 <div align="center"><img src="nacional_files/figure-html/midis.png"><!-- --></div>
 
-[Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)
+[Sección 3: Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)
 
 <p>
 <div style="text-align:justify"> Esta sección registra la propagación de casos positivos, muestras realizadas, ejecución de presupuesto, entre otros datos de interes desagregados a nivel de gobierno regional y municipalidades.</div>
@@ -88,13 +66,15 @@ g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_do
 ### ¿Cómo sumarse al equipo?
 
 <p>
-<div style="text-align:justify"> Este portal esta abierto a toda colaboración, aquellos que tengan interes en apoyar en el seguimiento de los datos de alguna sección (datos, nacional, sub-nacional) y/o proponer agregar apartados en las secciones. Para sumarse en el proyecto pueden escribir a [Alonso Tovar](mailto:a.tovar1498@gmail.com). Los colaboradores deben estar disponibles para una constante actualizacion de la información del portal.</div>
+<div style="text-align:justify"> Este portal esta abierto a toda colaboración, aquellos que tengan interes en apoyar en el seguimiento de los datos de alguna sección (datos, nacional, sub-nacional) y/o proponer agregar apartados en las secciones. Para sumarse en el proyecto pueden completar el siguiente [formulario](https://docs.google.com/forms/d/e/1FAIpQLSfEZ-eyIvOWvujmWCkyeuGLxMCREPLY-qZjh4tZQ3aZ2o1ZEA/viewform?usp=sf_link).  
+
+Los colaboradores deben estar disponibles para la actualización constante de la información presentada en el portal.</div>
 </p>
 
 ### ¿Cómo hacernos llegar tus comentarios?
 
 <p>
-<div style="text-align:justify"> Para solicitar información, reportar fallas y/o contribuir con comentarios de mejora, comunicarse al correo electrónico: [**covid19.proyectoperu@gmail.com**](mailto:covid19.proyectoperu@gmail.com) </div>
+<div style="text-align:justify"> Tenga en cuenta, este es un proyecto de recopilación de datos en curso. Si ve alguna inexactitud en la información proporcionada, o para comentarios específicos sobre el análisis u otro aspecto del portal, contáctenos: [**covid19.proyectoperu@gmail.com**](mailto:covid19.proyectoperu@gmail.com) </div>
 </p>
 
 
