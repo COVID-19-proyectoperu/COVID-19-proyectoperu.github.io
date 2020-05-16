@@ -266,7 +266,7 @@ Por parte del @MEF_Peru, las palabras con mayor frecuencia fueron covid, medidas
 
 <p><img src="nacional_files/figure-html/mef.png" /><!-- --></p>
 
-Para una explicación más extensa, revise el siguiente documento [*Tweets de Ministerios en el contexto de Estado de Emergencia*](https://docs.google.com/document/d/e/2PACX-1vSnReZUXnJl4Jb1ddptmUsBtP-wSaB4pOgeQYLy-ZCanqxfsv9B-mE4dPUAXaGzoQ/pub), trabajado por Manuel Ponte Torrel.
+Para una explicación más extensa, revise el siguiente documento [*Tweets de Ministerios en el contexto de Estado de Emergencia*](https://docs.google.com/document/d/e/2PACX-1vQOGXxtiTqoHQNoALSJG1p-CiLeOC9u-YLG-OFu1eYZ4h4A3wQmNZ4RD69sPCxcdFXOH8mpFSwwf5CA/pub), trabajado por Manuel Ponte Torrel.
 
 ### Protestas sociales vinculadas al Estado de Emergencia
 

@@ -140,6 +140,41 @@ mapa4 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
 mapa4
 ```
 
+## Situación a nivel distrital
+
+```{r disrtito 1, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+Lambayeque <- distrito[distrito$DEPARTAMEN == "LAMBAYEQUE",]
+
+Lambayequecondata=merge(Lambayeque,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r distrito 2, include=FALSE}
+popup <- paste0("<b>", "Departamento: ", "</b>", as.character(Lambayequecondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(Lambayequecondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(Lambayequecondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(Lambayequecondata$Casos_Positivos), "<br>",
+                "<b>", "Transferencia: ", "</b>", as.character(Lambayequecondata$Transferido), "<br>",
+                "<b>", "% Ejecutado: ", "</b>", as.character(Lambayequecondata$Porcentaje_Ejecutado), "<br>")
+
+palfac <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = Lambayequecondata$Categoria)
+
+lambayeque_mapa <- leaflet(Lambayequecondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac(Lambayequecondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~Lambayequecondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup) %>%
+  addLegend(position = "topright", pal = palfac, values = ~Lambayequecondata$Categoria,
+            title = "% de casos positivos por distrito")
+```
+
+
+```{r distrito 3, eval=TRUE, echo=FALSE, fig.width=3.5}
+lambayeque_mapa
+```
+
 
 Mapas actualizados al 15 de mayo del 2020. Fuente: Base de Seguimiento Sub-nacional. Elaborado para "Politólogos en cuarentena".
 
