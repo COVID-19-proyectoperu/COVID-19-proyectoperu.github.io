@@ -266,14 +266,14 @@ Por parte del @MEF_Peru, las palabras con mayor frecuencia fueron covid, medidas
 
 <p><img src="nacional_files/figure-html/mef.png" /><!-- --></p>
 
-Para una explicación más extensa, revise el siguiente documento [*Tweets de Ministerios en el contexto de Estado de Emergencia*](https://docs.google.com/document/d/e/2PACX-1vTpFwAZuWvaHJU6o-3m7pec6cmeTH28fekRIxRypqWmswoNFwIJm7wSBdkHnMuVDg/pub), trabajado por Manuel Ponte Torrel.
+Para una explicación más extensa, revise el siguiente documento [*Tweets de Ministerios en el contexto de Estado de Emergencia*](https://docs.google.com/document/d/e/2PACX-1vSnReZUXnJl4Jb1ddptmUsBtP-wSaB4pOgeQYLy-ZCanqxfsv9B-mE4dPUAXaGzoQ/pub), trabajado por Manuel Ponte Torrel.
 
 ### Protestas sociales vinculadas al Estado de Emergencia
 
 <p>
 <div style="text-align:justify"> La Defensoría del Pueblo define al **conflicto social** como «un proceso complejo en el que sectores de la sociedad, el Estado o las empresas perciben que sus objetivos, intereses, valores o necesidades son contradictorios». Dentro de esa dinámica, existen las acciones colectivas de protesta, las cuales no son en sí mismas el conflicto social sino una expresión de éste.
 
-Defensoría del Pueblo hace un seguimiento de las **acciones colectivas de protesta** como «la realización conjunta de hechos generalmente tendientes a efectuar un reclamo en el espacio público». Se refieren a marchas, plantones, toma de locales, bloqueo de vías, etc., es decir, formas públicas de expresar una demanda o descontento y que revelaría la existencia de una controversia.
+Respecto a ello, la Defensoría del Pueblo hace un seguimiento de las **acciones colectivas de protesta** como «la realización conjunta de hechos generalmente tendientes a efectuar un reclamo en el espacio público». Se refieren a marchas, plantones, toma de locales, bloqueo de vías, etc., es decir, formas públicas de expresar una demanda o descontento y que revelaría la existencia de una controversia.
 
 Dicha acción puede responder a la iniciativa de un grupo de personas, organizado o espontáneo, demandando atención a sus derechos ante el Estado o ante una empresa. Además, puede durar muy poco tiempo si la demanda es atendida o gestionada (Defensoria del Pueblo, 2012).</div>
 </p>
