@@ -5,7 +5,6 @@ output: html_document
 
 ```{r paquetes, include=FALSE,warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 library(ggplot2)
 library(ggiraph)
 library(data.table)
@@ -14,6 +13,7 @@ library(tidygraph)
 library(networkD3)
 library(igraph)
 library(visNetwork)
+library(sp)
 ```
 
 
