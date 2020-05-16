@@ -55,8 +55,8 @@ En ese sentido, esta sección tiene por objetivo responder a la pregunta **¿Có
 ### Evolución de los casos positivos detectados
 
 
-```{r, echo=FALSE,eval=TRUE, message=FALSE}
-g1<-casos %>% ggplot(aes(x=dia, y=casos_positivos)) +  geom_area(fill="grey", alpha=0.4) +  geom_line(color="darkgreen", size=0.8) +  geom_point(size=2, color="darkgreen")+ylim(0, 80000) + theme_minimal() + labs(title="Evolución de casos positivos detectados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-08")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-08")), y= 10000, label='Incorporacion de las pruebas rápidas'), size=3, angle=90, vjust=-0.4, hjust=0,color="black")+ geom_text(aes(y=casos_positivos,label=casos_positivos),position=position_dodge(width = 0.9),size=2.5, vjust=1,hjust=1.2,col="black", angle=-70)
+```{r, echo=FALSE,eval=TRUE, message=FALSE,fig.align='center'}
+g1<-casos %>% ggplot(aes(x=dia, y=casos_positivos)) +  geom_area(fill="grey", alpha=0.4) +  geom_line(color="darkgreen", size=0.8) +  geom_point(size=2, color="darkgreen")+ylim(0, 100000) + theme_minimal() + labs(title="Evolución de casos positivos detectados",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d") + theme(axis.text.x  =element_text(angle = 70, hjust = 1)) +geom_vline(aes(xintercept=(as.numeric(as.Date("2020-04-08")))),  linetype = 2) + geom_text(aes(x=(as.Date("2020-04-08")), y= 10000, label='Incorporacion de las pruebas rápidas'), size=3, angle=90, vjust=-0.4, hjust=0,color="black")+ geom_text(aes(y=casos_positivos,label=casos_positivos),position=position_dodge(width = 0.9),size=2.5, vjust=1,hjust=1.2,col="black", angle=-70)
 
 
 ###Grafico gif
@@ -78,12 +78,9 @@ g1
 
 ```
 
-
-<p><img src="casos_files/figure-html/file3532f41cdba.gif" /><!-- --></p>
-
 ### Nuevos casos positivos detectados por día
 
-```{r, echo=FALSE,eval=TRUE, message=FALSE}
+```{r, echo=FALSE,eval=TRUE, message=FALSE,fig.align='center'}
 g2<-casos %>% ggplot(aes(x=dia, y=c_positivos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="orange", size=0.8) +  geom_point(size=2, color="orange") + theme_classic() + labs(title="Nuevos casos positivos detectados por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
@@ -97,7 +94,7 @@ g2 + geom_text(aes(y=c_positivos_dia,label=c_positivos_dia),position=position_do
 
 ### Evolución del total de fallecimientos
 
-```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE,fig.align='center'}
 
 ### Evolucion de fallecimientos
 
@@ -125,7 +122,7 @@ muertos + geom_text(aes(y=fallecidos_total,label=fallecidos_total),position=posi
 
 ### Nuevos fallecimientos por día
 
-```{r, echo=FALSE,eval=TRUE, message=FALSE}
+```{r, echo=FALSE,eval=TRUE, message=FALSE,fig.align='center'}
 g4<-casos %>% ggplot(aes(x=dia, y=fallecidos_dia)) +  geom_area(alpha=0.1) +  geom_line(color="#CC79A7", size=0.8) +  geom_point(size=2, color="#CC79A7") + theme_classic() + labs(title="Nuevos fallecimientos por día",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
@@ -139,7 +136,7 @@ g4 + geom_text(aes(y=fallecidos_dia,label=fallecidos_dia),position=position_dodg
 
 ### Evolución de nuevos de hospitalizados por dia
 
-```{r, echo=FALSE, eval=TRUE}
+```{r, echo=FALSE, eval=TRUE,fig.align='center'}
 
 hospitaldata<-casos[!is.na(casos$hospital),]
 
@@ -156,7 +153,7 @@ hospitalizados+geom_text(aes(y=hospital,label=hospital),position=position_dodge(
 
 ### Evolución de nuevos de hospitalizados por dia
 
-```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE,fig.align='center'}
 
 hospital_nuevos<-casos[!is.na(casos$hospital_nuevos),]
 
@@ -175,7 +172,7 @@ g5 + geom_text(aes(y=hospital_nuevos,label=hospital_nuevos),position=position_do
 
 ### Evolución de personas en UCI 
 
-```{r UCI, warning=FALSE, echo=FALSE,eval=TRUE}
+```{r UCI, warning=FALSE, echo=FALSE,eval=TRUE,fig.align='center'}
 ucidata<-casos[!is.na(casos$uci_uso),]
 
 uci<-ucidata %>% ggplot(aes(x=dia, y=uci_uso))+ geom_line(color="blue", size=0.8) +  geom_point(size=2, color="blue") + theme_classic() + labs(title= "Evolución de personas en UCI",x = "Fecha", y="Número de personas en UCI",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + geom_text(aes(y=uci_uso,label=uci_uso),position=position_dodge(width = 0.9),size=2, vjust=-2,hjust=0.5,col="black")
@@ -186,7 +183,7 @@ uci
 
 ### 1.8. Evolución en la disponibilidad de camas UCI 
 
-```{r, echo=FALSE,eval=TRUE}
+```{r, echo=FALSE,eval=TRUE,fig.align='center'}
 uci_semana=subset(casos,dia>"2020-04-20")
 
 
@@ -209,7 +206,7 @@ uci_semana%>%
 <i> Casos activos =  Total de positivos detectados - (Total de fallecidos + Total de recuperados) </i>
 </p>
 
-```{r, warning=FALSE,echo=FALSE,eval=TRUE}
+```{r, warning=FALSE,echo=FALSE,eval=TRUE,fig.align='center'}
 
 abril=subset(casos,dia>"2020-04-01")
 

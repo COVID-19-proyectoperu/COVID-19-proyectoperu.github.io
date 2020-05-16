@@ -224,6 +224,18 @@ nodes <- nodes %>% mutate(font.size = (1:10)*3)
 <div style="text-align:right"> Red actualizada al 26/03/2020 </div>
 </p>
 
+```{r Problemas, include=FALSE}
+
+problemas<-BD_COVID[!is.na(BD_COVID$Fecha),] #Excluir aquellos registros que no son decisiones públicas
+problemas<-problemas[!is.na(problemas$Problema),]
+
+table(problemas$Problema)
+
+ggplot(problemas, aes(x=Fecha, y=Problema,color=Problema)) +  geom_jitter(size=2) + theme(legend.position = "none")
+
+```
+
+
 
 
 ### Analisis del discurso y problemas públicos: Uso del Twitter
@@ -254,7 +266,7 @@ Por parte del @MEF_Peru, las palabras con mayor frecuencia fueron covid, medidas
 
 <p><img src="nacional_files/figure-html/mef.png" /><!-- --></p>
 
-Para una explicación más extensa, revise el siguiente documento [*Tweets de Ministerios en el contexto de Estado de Emergencia*](nacional_files/redes_sociales.pdf), trabajado por Manuel Ponte Torrel.
+Para una explicación más extensa, revise el siguiente documento [*Tweets de Ministerios en el contexto de Estado de Emergencia*](https://docs.google.com/document/d/e/2PACX-1vTpFwAZuWvaHJU6o-3m7pec6cmeTH28fekRIxRypqWmswoNFwIJm7wSBdkHnMuVDg/pub), trabajado por Manuel Ponte Torrel.
 
 ### Protestas sociales vinculadas al Estado de Emergencia
 

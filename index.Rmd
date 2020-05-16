@@ -43,24 +43,11 @@ El objetivo final es construir un repositorio de las medidas adoptadas, acciones
     
 ## ¿Quienes somos los "Politólogos en cuarentena"?
 
-* Seguimiento nacional:
-  
-  Alonso Tovar Rojas  
-  Carol Pflücker Romero  
-  Luisa Carranza Avalos  
-  Carlos Andres Guevara
+<p>
+<div style="text-align:justify"> Es un equipo formado por egresados y estudiantes interesados en la investigación sobre la respuesta del Estado Peruano desde una perspectiva de Ciencia Política. De esta manera, colaboramos en la recopilación, análisis y presentación de la información que ha venido surgiendo durante el Estado de Emergencia y la acciones emprendidas por el gobierno, actores politicos a nivel nacional y autoridades a nivel sub-nacional, tanto en el área de la salud como en las diferentes áreas de políticas públicas. </div>
+</p>
 
-* Seguimiento subnacional:
-
-  Maira Chagua Taype  
-  Berenisse Rivera Alarcón  
-  Elizabeth Trujillo  
-  Joshua Gamero  
-  
-* Editores del portal:  
-
-  Alonso Tovar Rojas  
-  Manuel Ponte Torrel  
+Aquí pueden ver la presentación: ["Politologos en cuarentena"](https://docs.google.com/document/d/1PEbBTn_jQNJT7RUfRzYqj83U7xnT4rHn2OGpxyMYHZo/edit?usp=sharing)
 
 
 ### ¿Cómo sumarse al equipo?
