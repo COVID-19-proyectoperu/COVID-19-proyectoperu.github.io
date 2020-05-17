@@ -33,65 +33,13 @@ library(devtools)
 
 ### Gobiernos Regionales
 
-#### Mapa de situación de casos positivos a nivel regional
-
 ```{r datos, include=FALSE}
-dep <- readOGR(dsn="/cloud/project/Mapa_Covid",layer="gadm36_PER_1")
+dep <- readOGR(dsn="/cloud/project/shape_mapas",layer="gadm36_PER_1")
 datos_regional1="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZPEarncXxE3lFMD8Tp4MahTcc-hMw2XdAbn5nSPLFwvM-6YoAv3l05t9ggK0bv-/pub?gid=1241161277&single=true&output=csv"
 datos_regional1<-as.data.frame(read.csv(datos_regional1,sep = ","))
 
 mapacondata=merge(dep,datos_regional1)#merge de la base con el mapa
 ```
-
-
-```{r Casos Regionales, include=FALSE}
-popup <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",  
-      "<b>", "Casos Positivos: ", "</b>", as.character(mapacondata$casos_positivos), "<br>",
-      "<b>", "Total de Muestras: ", "</b>", as.character(mapacondata$muestras_regionales), "<br>",
-      "<b>", "% Positivos: ", "</b>", as.character(mapacondata$casos_x_pruebas_mapa), "<br>"
-      )
-
-palfac <- colorFactor(palette=c("#fee0d2","#fc9272","#de2d26"), domain = mapacondata$casos_pruebas_mapa_categorias)
-
-mapa <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
-  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac(mapacondata$casos_pruebas_mapa_categorias), group = "Belleza",
-              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup) %>%
-  addLegend(position = "topright", pal = palfac, values = ~mapacondata$casos_pruebas_mapa_categorias,
-            title = "% de casos positivos por región")
-```
-
-
-```{r Mapa casos, eval=TRUE, echo=FALSE, fig.width=3.5}
-mapa
-```
-
-#### Mapa de situación de fallecidos a nivel regional
-
-```{r fallecidos, include=FALSE}
-popup2 <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",
-      "<b>", "Número de fallecidos: ", "</b>", as.character(mapacondata$fallecidos), "<br>",
-      "<b>", "Casos Positivos: ", "</b>", as.character(mapacondata$casos_positivos), "<br>",
-      "<b>", "Mortalidad: ", "</b>", as.character(mapacondata$mortalidad), "<br>"
-      )
-
-palfac2 <- colorFactor(palette=c("#D9D9D9","#737373","darkblue","darkred"), domain = mapacondata$mortalidad_mapa_categorias)
-
-mapa2 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
-  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac2(mapacondata$mortalidad_mapa_categorias), group = "Belleza",
-              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup2) %>%
-  addLegend(position = "topright", pal = palfac2, values = ~mapacondata$mortalidad_mapa_categorias,
-            title = "% de mortalidad")
-```
-
-
-```{r mapa fallecidos, echo=FALSE,eval=TRUE,fig.width=3.5}
-mapa2
-```
-
 
 #### Mapa sobre la ejecución de transferencias para el COVID-19 a nivel regional
 
@@ -138,41 +86,6 @@ mapa4 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
 
 ```{r mapa EPP, echo=FALSE,eval=TRUE,fig.width=3.5}
 mapa4
-```
-
-## Situación a nivel distrital
-
-```{r disrtito 1, include=FALSE}
-distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
-datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
-Lambayeque <- distrito[distrito$DEPARTAMEN == "LAMBAYEQUE",]
-
-Lambayequecondata=merge(Lambayeque,datos_distrito,by.x="IDDIST",by.y="IDDIST")
-```
-
-
-```{r distrito 2, include=FALSE}
-popup5 <- paste0("<b>", "Departamento: ", "</b>", as.character(Lambayequecondata$DEPARTAMENTO), "<br>",
-                "<b>", "Provincia: ", "</b>", as.character(Lambayequecondata$PROVINCIA.y), "<br>",
-                "<b>", "Distrito: ", "</b>", as.character(Lambayequecondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(Lambayequecondata$Casos_Positivos), "<br>",
-                "<b>", "Transferencia: ", "</b>", as.character(Lambayequecondata$Transferido), "<br>",
-                "<b>", "% Ejecutado: ", "</b>", as.character(Lambayequecondata$Porcentaje_Ejecutado), "<br>")
-
-palfac5 <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = Lambayequecondata$Categoria)
-
-lambayeque_mapa <- leaflet(Lambayequecondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
-  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac5(Lambayequecondata$Categoria), group = "Belleza",
-              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~Lambayequecondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup5) %>%
-  addLegend(position = "topright", pal = palfac5, values = ~Lambayequecondata$Categoria,
-            title = "% de casos positivos por distrito")
-```
-
-
-```{r distrito 3, eval=TRUE, echo=FALSE, fig.width=3.5}
-lambayeque_mapa
 ```
 
 

@@ -9,20 +9,36 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, include=FALSE}
 # instalar paquetes
-#install.packages("tidyverse")
 library(tidyverse)
-#install.packages("ggplot")
 library(ggplot2)
-#install.packages("gifski")
 library(gifski)
-#install.packages("gganimate")
 library(gganimate)
-#install.packages("plotly")
 library(plotly)
-#install.packages("dplyr")
 library(dplyr)
-#install.packages("ggiraph")
 library(ggiraph)
+library(rio)
+library(sp)
+library(geojsonio)
+library(rgdal)
+library(spdep)
+library(pgirmess)
+library(gstat)
+library(maps)
+library(rgeos) 
+library(gtable)
+library(scales)
+library(ggplot2)
+library(rgdal)
+library(maptools)
+library(Matrix)
+library(LearnBayes)
+library(spatstat)
+library(googleVis)
+library(plyr)
+library(maptools)
+library(leaflet)
+library(htmlwidgets)
+library(devtools)
 ```
 
 ```{r,include=FALSE}
@@ -51,6 +67,8 @@ En ese sentido, esta sección tiene por objetivo responder a la pregunta **¿Có
 <div style="text-align:right"> Base de los datos sobre el COVID-19 en el Perú [Aquí](https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=1165383620&single=true&output=csv)</div>
 
 </p>
+
+## Situación a nivel nacional
 
 ### Evolución de los casos positivos detectados
 
@@ -181,40 +199,6 @@ uci
 
 ```
 
-### 1.8. Evolución en la disponibilidad de camas UCI 
-
-```{r, echo=FALSE,eval=TRUE,fig.align='center'}
-uci_semana=subset(casos,dia>"2020-04-20")
-
-
-library(dplyr)
-uci_semana%>%
-  dplyr::select("Fecha"="dia","Total de camas UCI"="uci_total" ,"Camas UCI ocupadas"="uci_uso", "Camas UCI disponibles"="uci_disponibles") %>%  DT::datatable(rownames = FALSE)
-```
-
-
-
-
-### Evolución de los casos positivos activos
-
-<p>
-<div style="text-align:justify"> El número de casos activos es registrada descontando de los casos confirmados al número de muertos y los pacientes recuperados. Esta cifra ha variado en la tendencia por un aumento considerable en el número de recuperados. </div>
-</p>
-
-<p>
-<div style="text-align:center">
-<i> Casos activos =  Total de positivos detectados - (Total de fallecidos + Total de recuperados) </i>
-</p>
-
-```{r, include=FALSE,fig.align='center'}
-
-abril=subset(casos,dia>"2020-04-01")
-
-g4<-abril %>% ggplot(aes(x=dia, y=casos_activos)) +  geom_area(alpha=0.1) +  geom_line(color="#56B4E9", size=0.8) +  geom_point(size=2, color="#56B4E9") + theme_classic() + labs(title="Numero de casos activos (Abril y Mayo)",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black"))
-
-g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(width = 0.9),size=2.5, vjust=-1,hjust=0.5,col="black")
-```
-
 
 ```{r pendientes, include=FALSE}
 ##### 1.6. Distribución de casos de COVID-19
@@ -232,11 +216,239 @@ g4 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(
 ```
 
 
-
 <p>
 <div style="text-align:right"> Datos actualizados al 15/05/2020 </div>
 </p>
 
 
+## Situación a nivel sub-nacional
+
+### Evolución regional
+
+#### Mapa de situación de casos positivos a nivel regional
+
+```{r datos, include=FALSE}
+dep <- readOGR(dsn="/cloud/project/shape_mapas",layer="gadm36_PER_1")
+datos_regional1="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkc4tZ-ZXIUtZ6CZPEarncXxE3lFMD8Tp4MahTcc-hMw2XdAbn5nSPLFwvM-6YoAv3l05t9ggK0bv-/pub?gid=1241161277&single=true&output=csv"
+datos_regional1<-as.data.frame(read.csv(datos_regional1,sep = ","))
+
+mapacondata=merge(dep,datos_regional1)#merge de la base con el mapa
+```
 
 
+```{r Casos Regionales, include=FALSE}
+popup <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",  
+      "<b>", "Casos Positivos: ", "</b>", as.character(mapacondata$casos_positivos), "<br>",
+      "<b>", "Total de Muestras: ", "</b>", as.character(mapacondata$muestras_regionales), "<br>",
+      "<b>", "% Positivos: ", "</b>", as.character(mapacondata$casos_x_pruebas_mapa), "<br>"
+      )
+
+palfac <- colorFactor(palette=c("#fee0d2","#fc9272","#de2d26"), domain = mapacondata$casos_pruebas_mapa_categorias)
+
+mapa <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac(mapacondata$casos_pruebas_mapa_categorias), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup) %>%
+  addLegend(position = "topright", pal = palfac, values = ~mapacondata$casos_pruebas_mapa_categorias,
+            title = "% de casos positivos por región")
+```
+
+
+```{r Mapa casos, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+mapa
+```
+
+#### Mapa de situación de fallecidos a nivel regional
+
+```{r fallecidos, include=FALSE}
+popup2 <- paste0("<b>", "Región: ", "</b>", as.character(mapacondata$DEPARTAMEN), "<br>",
+      "<b>", "Número de fallecidos: ", "</b>", as.character(mapacondata$fallecidos), "<br>",
+      "<b>", "Casos Positivos: ", "</b>", as.character(mapacondata$casos_positivos), "<br>",
+      "<b>", "Mortalidad: ", "</b>", as.character(mapacondata$mortalidad), "<br>"
+      )
+
+palfac2 <- colorFactor(palette=c("#D9D9D9","#737373","darkblue","darkred"), domain = mapacondata$mortalidad_mapa_categorias)
+
+mapa2 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac2(mapacondata$mortalidad_mapa_categorias), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~mapacondata$DEPARTAMEN, labelOptions = labelOptions(direction = "auto"), popup = popup2) %>%
+  addLegend(position = "topright", pal = palfac2, values = ~mapacondata$mortalidad_mapa_categorias,
+            title = "% de mortalidad")
+```
+
+
+```{r mapa fallecidos, echo=FALSE,eval=TRUE,fig.width=3.5, fig.align='center'}
+mapa2
+```
+
+## Situación a nivel distrital
+
+### Región: Lambayeque
+
+```{r disrtito 1, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+Lambayeque <- distrito[distrito$DEPARTAMEN == "LAMBAYEQUE",]
+
+Lambayequecondata=merge(Lambayeque,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r distrito 2, include=FALSE}
+popup5 <- paste0("<b>", "Departamento: ", "</b>", as.character(Lambayequecondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(Lambayequecondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(Lambayequecondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(Lambayequecondata$Casos_Positivos), "<br>")
+
+palfac5 <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = Lambayequecondata$Categoria)
+
+lambayeque_mapa <- leaflet(Lambayequecondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac5(Lambayequecondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~Lambayequecondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup5) %>%
+  addLegend(position = "topright", pal = palfac5, values = ~Lambayequecondata$Categoria,
+            title = "% de casos positivos por distrito")
+```
+
+
+```{r distrito 3, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+lambayeque_mapa
+```
+
+### Región: Piura
+
+```{r Piura Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+Piura <- distrito[distrito$DEPARTAMEN == "PIURA",]
+
+Piuracondata=merge(Piura,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r Piura Codigo, include=FALSE}
+popup_Piura <- paste0("<b>", "Departamento: ", "</b>", as.character(Piuracondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(Piuracondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(Piuracondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(Piuracondata$Casos_Positivos), "<br>")
+
+palfac_Piura <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = Piuracondata$Categoria)
+
+Piura_mapa <- leaflet(Piuracondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_Piura(Piuracondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~Piuracondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_Piura) %>%
+  addLegend(position = "topright", pal = palfac_Piura, values = ~Piuracondata$Categoria,
+            title = "% de casos positivos por distrito")
+```
+
+
+```{r Piura Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+Piura_mapa
+```
+
+### Región: San Martin
+
+```{r San Martin Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+sanmartin <- distrito[distrito$DEPARTAMEN == "SAN MARTIN",]
+
+sanmartincondata=merge(sanmartin,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r San Martin Codigo, include=FALSE}
+popup_sanmartin <- paste0("<b>", "Departamento: ", "</b>", as.character(sanmartincondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(sanmartincondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(sanmartincondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(sanmartincondata$Casos_Positivos), "<br>")
+
+palfac_sanmartin <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = sanmartincondata$Categoria)
+
+Sanmartin_mapa <- leaflet(sanmartincondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_sanmartin(sanmartincondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~sanmartincondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_sanmartin) %>%
+  addLegend(position = "topright", pal = palfac_sanmartin, values = ~sanmartincondata$Categoria,
+            title = "% de casos positivos por distrito")
+```
+
+
+```{r San Martin Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+Sanmartin_mapa
+```
+
+### Región: Tumbes
+
+```{r Tumbes Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+tumbes <- distrito[distrito$DEPARTAMEN == "TUMBES",]
+
+tumbescondata=merge(tumbes,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r Tumbes Codigo, include=FALSE}
+popup_tumbes <- paste0("<b>", "Departamento: ", "</b>", as.character(tumbescondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(tumbescondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(tumbescondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(tumbescondata$Casos_Positivos), "<br>")
+
+palfac_tumbes <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#800000","#636363"), domain = tumbescondata$Categoria)
+
+tumbes_mapa <- leaflet(tumbescondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_tumbes(tumbescondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~tumbescondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_tumbes) %>%
+  addLegend(position = "topright", pal = palfac_tumbes, values = ~tumbescondata$Categoria,
+            title = "% de casos positivos por distrito")
+```
+
+
+```{r Tumbes Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+tumbes_mapa
+```
+
+
+
+### Región: Madre de Dios
+
+```{r Madre de Dios Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+madrededios <- distrito[distrito$DEPARTAMEN == "MADRE DE DIOS",]
+
+madrededioscondata=merge(madrededios,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r Madre de Dios Codigo, include=FALSE}
+popup_madrededios <- paste0("<b>", "Departamento: ", "</b>", as.character(madrededioscondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(madrededioscondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(madrededioscondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(madrededioscondata$Casos_Positivos), "<br>")
+
+palfac_madrededios <- colorFactor(palette=c("#ffffcc","#a1dab4","#800000","#636363"), domain = madrededioscondata$Categoria)
+
+madrededios_mapa <- leaflet(madrededioscondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_madrededios(madrededioscondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~madrededioscondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_madrededios) %>%
+  addLegend(position = "topright", pal = palfac_madrededios, values = ~madrededioscondata$Categoria,
+            title = "% de casos positivos en la región")
+```
+
+
+```{r Madre de Dios Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+madrededios_mapa
+```
