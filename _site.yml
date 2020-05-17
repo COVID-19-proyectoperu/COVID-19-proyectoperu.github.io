@@ -10,8 +10,10 @@ navbar:
     - text: "Seguimiento nacional"
       href: nacional.html
     - text: "Seguimiento sub-nacional"
-      href: subnacional.knit.html
+      href: sub_nacional.html
 output:
   html_document:
     theme: yeti
     highlight: textmate
+    
+  
