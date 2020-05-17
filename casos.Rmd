@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, include=FALSE}
 # instalar paquetes
 #install.packages("tidyverse")
-library(tidyverse)
+
 #install.packages("ggplot")
 library(ggplot2)
 #install.packages("gifski")
