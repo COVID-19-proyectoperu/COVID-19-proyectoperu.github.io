@@ -87,11 +87,8 @@ mapa4 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
 ```{r mapa EPP, echo=FALSE,eval=TRUE,fig.width=3.5}
 mapa4
 ```
-<<<<<<< HEAD
 
 
-=======
->>>>>>> be6193da1d701d5af48f29152283379285d76847
 Mapas actualizados al 15 de mayo del 2020. Fuente: Base de Seguimiento Sub-nacional. Elaborado para "Politólogos en cuarentena".
 
 #### Situación sobre movilidad de la población a nivel regional
