@@ -285,9 +285,9 @@ mapa2 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
 mapa2
 ```
 
-## Situación a nivel distrital
+### Evolución a nivel distrital
 
-### Región: Lambayeque
+#### Región: Lambayeque
 
 ```{r disrtito 1, include=FALSE}
 distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
@@ -316,11 +316,11 @@ lambayeque_mapa <- leaflet(Lambayequecondata) %>% addProviderTiles(providers$Esr
 ```
 
 
-```{r distrito 3, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+```{r distrito 3, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
 lambayeque_mapa
 ```
 
-### Región: Piura
+#### Región: Piura
 
 ```{r Piura Data, include=FALSE}
 distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
@@ -349,107 +349,8 @@ Piura_mapa <- leaflet(Piuracondata) %>% addProviderTiles(providers$Esri.WorldGra
 ```
 
 
-```{r Piura Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
+```{r Piura Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
 Piura_mapa
 ```
 
-### Región: San Martin
-
-```{r San Martin Data, include=FALSE}
-distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
-datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
-sanmartin <- distrito[distrito$DEPARTAMEN == "SAN MARTIN",]
-
-sanmartincondata=merge(sanmartin,datos_distrito,by.x="IDDIST",by.y="IDDIST")
-```
-
-
-```{r San Martin Codigo, include=FALSE}
-popup_sanmartin <- paste0("<b>", "Departamento: ", "</b>", as.character(sanmartincondata$DEPARTAMENTO), "<br>",
-                "<b>", "Provincia: ", "</b>", as.character(sanmartincondata$PROVINCIA.y), "<br>",
-                "<b>", "Distrito: ", "</b>", as.character(sanmartincondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(sanmartincondata$Casos_Positivos), "<br>")
-
-palfac_sanmartin <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = sanmartincondata$Categoria)
-
-Sanmartin_mapa <- leaflet(sanmartincondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
-  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac_sanmartin(sanmartincondata$Categoria), group = "Belleza",
-              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~sanmartincondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_sanmartin) %>%
-  addLegend(position = "topright", pal = palfac_sanmartin, values = ~sanmartincondata$Categoria,
-            title = "% de casos positivos por distrito")
-```
-
-
-```{r San Martin Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
-Sanmartin_mapa
-```
-
-### Región: Tumbes
-
-```{r Tumbes Data, include=FALSE}
-distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
-datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
-tumbes <- distrito[distrito$DEPARTAMEN == "TUMBES",]
-
-tumbescondata=merge(tumbes,datos_distrito,by.x="IDDIST",by.y="IDDIST")
-```
-
-
-```{r Tumbes Codigo, include=FALSE}
-popup_tumbes <- paste0("<b>", "Departamento: ", "</b>", as.character(tumbescondata$DEPARTAMENTO), "<br>",
-                "<b>", "Provincia: ", "</b>", as.character(tumbescondata$PROVINCIA.y), "<br>",
-                "<b>", "Distrito: ", "</b>", as.character(tumbescondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(tumbescondata$Casos_Positivos), "<br>")
-
-palfac_tumbes <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#800000","#636363"), domain = tumbescondata$Categoria)
-
-tumbes_mapa <- leaflet(tumbescondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
-  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac_tumbes(tumbescondata$Categoria), group = "Belleza",
-              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~tumbescondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_tumbes) %>%
-  addLegend(position = "topright", pal = palfac_tumbes, values = ~tumbescondata$Categoria,
-            title = "% de casos positivos por distrito")
-```
-
-
-```{r Tumbes Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
-tumbes_mapa
-```
-
-
-
-### Región: Madre de Dios
-
-```{r Madre de Dios Data, include=FALSE}
-distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
-datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
-madrededios <- distrito[distrito$DEPARTAMEN == "MADRE DE DIOS",]
-
-madrededioscondata=merge(madrededios,datos_distrito,by.x="IDDIST",by.y="IDDIST")
-```
-
-
-```{r Madre de Dios Codigo, include=FALSE}
-popup_madrededios <- paste0("<b>", "Departamento: ", "</b>", as.character(madrededioscondata$DEPARTAMENTO), "<br>",
-                "<b>", "Provincia: ", "</b>", as.character(madrededioscondata$PROVINCIA.y), "<br>",
-                "<b>", "Distrito: ", "</b>", as.character(madrededioscondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(madrededioscondata$Casos_Positivos), "<br>")
-
-palfac_madrededios <- colorFactor(palette=c("#ffffcc","#a1dab4","#800000","#636363"), domain = madrededioscondata$Categoria)
-
-madrededios_mapa <- leaflet(madrededioscondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
-  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac_madrededios(madrededioscondata$Categoria), group = "Belleza",
-              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~madrededioscondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_madrededios) %>%
-  addLegend(position = "topright", pal = palfac_madrededios, values = ~madrededioscondata$Categoria,
-            title = "% de casos positivos en la región")
-```
-
-
-```{r Madre de Dios Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center'}
-madrededios_mapa
-```
+Para ver diferentes regiones siga este [enlace](mapas_distritos.html)

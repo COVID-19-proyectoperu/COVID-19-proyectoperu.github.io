@@ -314,13 +314,17 @@ areaprotesta=rbind(areaprotesta1, areaprotesta2,areaprotesta3)
 
 
 
-ggplot(areaprotesta,aes(x=Fecha, y=acumulado, fill=Area, color=Area)) +  geom_line(size=0.5) +  geom_point(size = 2) + theme()  + theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+labs(title="Protestas registradas en Educación, Salud y Justicia\ndurante el Estado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Fecha")+ theme(legend.position = "left",plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + facet_grid(Area ~.)
+protesta1<-ggplot(areaprotesta,aes(x=Fecha, y=acumulado, fill=Area, color=Area)) +  geom_line(size=0.5) +  geom_point(size = 2) + theme()  + theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+labs(title="Protestas registradas en Educación, Salud y Justicia\ndurante el Estado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Fecha")+ theme(legend.position = "left",plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + facet_grid(Area ~.)
 
 
 #ggplot(sum_protesta,aes(x=Fecha, y=acumulado, fill=Area, color=Area)) +  geom_line(size=0.5) +  geom_point(size = 2) + theme_classic()  + theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) + scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")+labs(title="Total de protestas registradas \n durante el Estado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Fecha")+ theme(legend.position = "left",plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
 
 
-ggplot(protesta,aes(Area), fill=Mes)+geom_bar(position = "dodge2", width = 0.8) + coord_flip() + theme_classic() + geom_text(stat='count', aes(x = Area, label = ..count..), vjust = 0, hjust=-0.5,size=3)+ theme(legend.position = "none") + labs(title="Número de protestas vinculadas al\nEstado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Área")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+protesta2<-ggplot(protesta,aes(Area), fill=Mes)+geom_bar(position = "dodge2", width = 0.8) + coord_flip() + theme_classic() + geom_text(stat='count', aes(x = Area, label = ..count..), vjust = 0, hjust=-0.5,size=3)+ theme(legend.position = "none") + labs(title="Número de protestas vinculadas al\nEstado de Emergencia",caption = "Fuente: Base de Seguimiento Nacional. Elaborado para 'Politólogos en cuarentena'" ,y = "Número de protestas", x="Área")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+protesta2
+
+protesta1
 ```
 
 
@@ -347,12 +351,16 @@ Su importancia radica en que son aquellos funcionarios quienes estan implementan
 
 #### Personal médico
 
+> Miguel Palacios (decano del Colegio Médico del Perú): hay 820 médicos contagiados con el  coronavirus y 16 fallecieron a causa de esa enfermedad (*12 de mayo del 2020*)
+
 > Según la infomación publicada por el Colegio de Médicos del Perú, habrian 313 médicos contagiados con COVID-19 a nivel nacional, 13 en UCI y 1 fallecido.(*24 de abril del 2020*)
 
 <p><img src="casos_files/figure-html/medicos.jpg" /width=360 height=480><!-- --></p>
 
 
 #### Policias
+
+> Gaston Rodriguez (Ministro del Interior): 4,098 agentes de la Policía Nacional del Perú (PNP) que dieron positivo al nuevo coronavirus (COVID-19) y 82 fallecieron por esta enfermedad.
 
 > Gaston Rodriguez (Ministro del Interior): 46 policías han muerto por la COVID-19, entre 3.873 agentes que se contagiaron mientras patrullaban las calles para hacer cumplir la cuarentena y el estado de emergencia en el Perú (RPP, 2020). "Tenemos 360 policías hospitalizados y 17 en cuidados intensivos" (*06 de mayo del 2020*)
 
