@@ -138,3 +138,36 @@ tumbes_mapa <- leaflet(tumbescondata) %>% addProviderTiles(providers$Esri.WorldG
 tumbes_mapa
 ```
 
+### Región: Cajamarca
+
+```{r Cajamarca Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+cajamarca <- distrito[distrito$DEPARTAMEN == "CAJAMARCA",]
+
+cajamarcacondata=merge(cajamarca,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r Cajamarca Codigo, include=FALSE}
+popup_cajamarca <- paste0("<b>", "Departamento: ", "</b>", as.character(cajamarcacondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(cajamarcacondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(cajamarcacondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(cajamarcacondata$Casos_Positivos), "<br>")
+
+palfac_cajamarca <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#800000","#636363"), domain = cajamarcacondata$Categoria)
+
+cajamarca_mapa <- leaflet(cajamarcacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_cajamarca(cajamarcacondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~cajamarcacondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_cajamarca) %>%
+  addLegend(position = "topright", pal = palfac_cajamarca, values = ~cajamarcacondata$Categoria,
+            title = "% de casos positivos por distrito")
+```
+
+
+```{r Cajamarca Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center',message=FALSE,warning=FALSE}
+cajamarca_mapa
+```
+
