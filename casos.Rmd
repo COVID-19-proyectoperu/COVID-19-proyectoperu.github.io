@@ -285,7 +285,41 @@ mapa2 <- leaflet(mapacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanva
 mapa2
 ```
 
-### Evolución a nivel distrital
+### Evolución a nivel distrital (Regiones más afectadas)
+
+#### Región: Loreto
+
+```{r loreto Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+loreto <- distrito[distrito$DEPARTAMEN == "LORETO",]
+
+loretocondata=merge(loreto,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r loreto Codigo, include=FALSE}
+popup_loreto <- paste0("<b>", "Departamento: ", "</b>", as.character(loretocondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(loretocondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(loretocondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(loretocondata$Casos_Positivos), "<br>")
+
+palfac_loreto <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = loretocondata$Categoria)
+
+loreto_mapa <- leaflet(loretocondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_loreto(loretocondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~loretocondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_loreto) %>%
+  addLegend(position = "topright", pal = palfac_loreto, values = ~loretocondata$Categoria,
+            title = "% de casos positivos por distrito")
+```
+
+
+```{r loreto Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+loreto_mapa
+```
+
 
 #### Región: Lambayeque
 
@@ -351,6 +385,44 @@ Piura_mapa <- leaflet(Piuracondata) %>% addProviderTiles(providers$Esri.WorldGra
 
 ```{r Piura Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
 Piura_mapa
+```
+
+
+
+#### Región: La Libertad
+
+```{r La Libertad Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+LL <- distrito[distrito$DEPARTAMEN == "LA LIBERTAD",]
+
+LLcondata=merge(LL,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+
+LLcondata$fecha_actualizada<-as.Date(LLcondata$fecha_actualizada)
+```
+
+
+```{r La Libertad Codigo, include=FALSE}
+popup_LL<- paste0("<b>", "Departamento: ", "</b>", as.character(LLcondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(LLcondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(LLcondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(LLcondata$Casos_Positivos), "<br>",
+                "<b>", "Última actualización: ", "</b>", as.character(LLcondata$fecha_actualizada), "<br>")
+
+palfac_LL <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = LLcondata$Categoria)
+
+LL_mapa <- leaflet(LLcondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_LL(LLcondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~LLcondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_LL) %>%
+  addLegend(position = "topright", pal = palfac_LL, values = ~LLcondata$Categoria,
+            title = "% de casos positivos por Región")
+```
+
+
+```{r La Libertad Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+LL_mapa
 ```
 
 Para ver diferentes regiones siga este [enlace](mapas_distritos.html)

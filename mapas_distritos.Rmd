@@ -38,6 +38,43 @@ library(devtools)
 ```
 
 
+### Región: Amazonas
+
+```{r Amazonas Data, include=FALSE}
+distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+amazonas <- distrito[distrito$DEPARTAMEN == "AMAZONAS",]
+
+amazonascondata=merge(amazonas,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r amazonas Codigo, include=FALSE}
+popup_amazonas <- paste0("<b>", "Departamento: ", "</b>", as.character(amazonascondata$DEPARTAMENTO), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(amazonascondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(amazonascondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(amazonascondata$Casos_Positivos), "<br>")
+
+palfac_amazonas <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#800000","#636363"), domain = amazonascondata$Categoria)
+
+amazonas_mapa <- leaflet(amazonascondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_amazonas(amazonascondata$Categoria), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~amazonascondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_amazonas) %>%
+  addLegend(position = "topright", pal = palfac_amazonas, values = ~amazonascondata$Categoria,
+            title = "% de casos positivos por región")
+```
+
+
+```{r amazonas Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center',message=FALSE,warning=FALSE}
+amazonas_mapa
+```
+
+
+
+
+
 ### Región: Madre de Dios
 
 ```{r Madre de Dios Data, include=FALSE}
