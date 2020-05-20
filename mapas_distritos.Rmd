@@ -207,4 +207,3 @@ cajamarca_mapa <- leaflet(cajamarcacondata) %>% addProviderTiles(providers$Esri.
 ```{r Cajamarca Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center',message=FALSE,warning=FALSE}
 cajamarca_mapa
 ```
-

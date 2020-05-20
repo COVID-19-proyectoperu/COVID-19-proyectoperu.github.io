@@ -399,6 +399,7 @@ LL <- distrito[distrito$DEPARTAMEN == "LA LIBERTAD",]
 LLcondata=merge(LL,datos_distrito,by.x="IDDIST",by.y="IDDIST")
 
 LLcondata$fecha_actualizada<-as.Date(LLcondata$fecha_actualizada)
+
 ```
 
 
