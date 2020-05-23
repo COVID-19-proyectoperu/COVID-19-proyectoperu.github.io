@@ -229,6 +229,7 @@ mapa2
 ```{r loreto Data, include=FALSE}
 distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
 datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+datos_distrito$concentra_reg<-round(datos_distrito$concentra_reg*100, digits = 2)
 loreto <- distrito[distrito$DEPARTAMEN == "LORETO",]
 
 loretocondata=merge(loreto,datos_distrito,by.x="IDDIST",by.y="IDDIST")
@@ -236,22 +237,21 @@ loretocondata=merge(loreto,datos_distrito,by.x="IDDIST",by.y="IDDIST")
 
 
 ```{r loreto Codigo, include=FALSE}
-popup_loreto <- paste0("<b>", "Departamento: ", "</b>", as.character(loretocondata$DEPARTAMENTO), "<br>",
+popup_loreto <- paste0("<b>", "Departamento: ", "</b>", as.character(loretocondata$DEPARTAMEN), "<br>",
                 "<b>", "Provincia: ", "</b>", as.character(loretocondata$PROVINCIA.y), "<br>",
                 "<b>", "Distrito: ", "</b>", as.character(loretocondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(loretocondata$Casos_Positivos), "<br>")
+                "<b>", "Casos Positivos: ", "</b>", as.character(loretocondata$Casos_Positivos), "<br>", "<b>", "Concentración distrito/región (%): ", "</b>", as.character(loretocondata$concentra_reg), "<br>")
 
-palfac_loreto <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = loretocondata$Categoria)
+palfac_loreto <- colorFactor(palette=c("#ffff9f","#ffb48c","#ff7858","#fb4f31", "#d14100","#ffffff"), domain = loretocondata$concentra_reg2)
 
 loreto_mapa <- leaflet(loretocondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
   addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac_loreto(loretocondata$Categoria), group = "Belleza",
+              fillOpacity = 0.5, fillColor = ~palfac_loreto(loretocondata$concentra_reg2), group = "Belleza",
               highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
               label = ~loretocondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_loreto) %>%
-  addLegend(position = "topright", pal = palfac_loreto, values = ~loretocondata$Categoria,
-            title = "% de casos positivos por distrito")
+  addLegend(position = "topright", pal = palfac_loreto, values = ~loretocondata$concentra_reg2,
+            title = "Porcentaje regional (por distritos)")
 ```
-
 
 ```{r loreto Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
 loreto_mapa
@@ -261,106 +261,185 @@ loreto_mapa
 #### Región: Lambayeque
 
 ```{r disrtito 1, include=FALSE}
-distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
-datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
+#distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
+#datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
 Lambayeque <- distrito[distrito$DEPARTAMEN == "LAMBAYEQUE",]
 
-Lambayequecondata=merge(Lambayeque,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+lambayequecondata=merge(Lambayeque,datos_distrito,by.x="IDDIST",by.y="IDDIST")
 ```
 
+```{r lambayeque Codigo, include=FALSE}
+popup_lambayeque <- paste0("<b>", "Departamento: ", "</b>", as.character(lambayequecondata$DEPARTAMEN), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(lambayequecondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(lambayequecondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(lambayequecondata$Casos_Positivos), "<br>", "<b>", "Concentración distrito/región (%): ", "</b>", as.character(lambayequecondata$concentra_reg), "<br>")
 
-```{r distrito 2, include=FALSE}
-popup5 <- paste0("<b>", "Departamento: ", "</b>", as.character(Lambayequecondata$DEPARTAMENTO), "<br>",
-                "<b>", "Provincia: ", "</b>", as.character(Lambayequecondata$PROVINCIA.y), "<br>",
-                "<b>", "Distrito: ", "</b>", as.character(Lambayequecondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(Lambayequecondata$Casos_Positivos), "<br>")
+palfac_lambayeque <- colorFactor(palette=c("#ffff9f","#ffb48c","#ff7858","#fb4f31", "#d14100","#ffffff"), domain = lambayequecondata$concentra_reg2)
 
-palfac5 <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = Lambayequecondata$Categoria)
-
-lambayeque_mapa <- leaflet(Lambayequecondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+lambayeque_mapa <- leaflet(lambayequecondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
   addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac5(Lambayequecondata$Categoria), group = "Belleza",
+              fillOpacity = 0.5, fillColor = ~palfac_lambayeque(lambayequecondata$concentra_reg2), group = "Belleza",
               highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~Lambayequecondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup5) %>%
-  addLegend(position = "topright", pal = palfac5, values = ~Lambayequecondata$Categoria,
-            title = "% de casos positivos por distrito")
+              label = ~lambayequecondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_lambayeque) %>%
+  addLegend(position = "topright", pal = palfac_lambayeque, values = ~lambayequecondata$concentra_reg2,
+            title = "Porcentaje regional (por distritos)")
 ```
 
-
-```{r distrito 3, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+```{r lambayeque Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
 lambayeque_mapa
 ```
 
 #### Región: Piura
 
-```{r Piura Data, include=FALSE}
-distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
-datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
-Piura <- distrito[distrito$DEPARTAMEN == "PIURA",]
+```{r piura Data, include=FALSE}
 
-Piuracondata=merge(Piura,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+piura <- distrito[distrito$DEPARTAMEN == "PIURA",]
+
+piuracondata=merge(piura,datos_distrito,by.x="IDDIST",by.y="IDDIST")
 ```
 
 
-```{r Piura Codigo, include=FALSE}
-popup_Piura <- paste0("<b>", "Departamento: ", "</b>", as.character(Piuracondata$DEPARTAMENTO), "<br>",
-                "<b>", "Provincia: ", "</b>", as.character(Piuracondata$PROVINCIA.y), "<br>",
-                "<b>", "Distrito: ", "</b>", as.character(Piuracondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(Piuracondata$Casos_Positivos), "<br>")
+```{r piura Codigo, include=FALSE}
+popup_piura <- paste0("<b>", "Departamento: ", "</b>", as.character(piuracondata$DEPARTAMEN), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(piuracondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(piuracondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(piuracondata$Casos_Positivos), "<br>", "<b>", "Concentración distrito/región (%): ", "</b>", as.character(piuracondata$concentra_reg), "<br>")
 
-palfac_Piura <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = Piuracondata$Categoria)
+palfac_piura <- colorFactor(palette=c("#ffff9f","#ffb48c","#ff7858","#fb4f31", "#d14100","#ffffff"), domain = piuracondata$concentra_reg2)
 
-Piura_mapa <- leaflet(Piuracondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+piura_mapa <- leaflet(piuracondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
   addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac_Piura(Piuracondata$Categoria), group = "Belleza",
+              fillOpacity = 0.5, fillColor = ~palfac_piura(piuracondata$concentra_reg2), group = "Belleza",
               highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~Piuracondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_Piura) %>%
-  addLegend(position = "topright", pal = palfac_Piura, values = ~Piuracondata$Categoria,
-            title = "% de casos positivos por distrito")
+              label = ~piuracondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_piura) %>%
+  addLegend(position = "topright", pal = palfac_piura, values = ~piuracondata$concentra_reg2,
+            title = "Porcentaje regional (por distritos)")
 ```
 
-
-```{r Piura Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
-Piura_mapa
+```{r piura Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+piura_mapa
 ```
-
-
 
 #### Región: La Libertad
 
-```{r La Libertad Data, include=FALSE}
-distrito <- readOGR(dsn="/cloud/project/subnacional_files",layer="DISTRITOS")
-datos_distrito=import("/cloud/project/subnacional_files/Seguimiento_Sub_nacional.xlsx", sheet="DatosDistrital_Mapa")
-LL <- distrito[distrito$DEPARTAMEN == "LA LIBERTAD",]
+```{r libertad Data, include=FALSE}
 
-LLcondata=merge(LL,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+libertad <- distrito[distrito$DEPARTAMEN == "LA LIBERTAD",]
 
-LLcondata$fecha_actualizada<-as.Date(LLcondata$fecha_actualizada)
-
+libertadcondata=merge(libertad,datos_distrito,by.x="IDDIST",by.y="IDDIST")
 ```
 
 
-```{r La Libertad Codigo, include=FALSE}
-popup_LL<- paste0("<b>", "Departamento: ", "</b>", as.character(LLcondata$DEPARTAMENTO), "<br>",
-                "<b>", "Provincia: ", "</b>", as.character(LLcondata$PROVINCIA.y), "<br>",
-                "<b>", "Distrito: ", "</b>", as.character(LLcondata$DISTRITO.y), "<br>",
-                "<b>", "Casos Positivos: ", "</b>", as.character(LLcondata$Casos_Positivos), "<br>",
-                "<b>", "Última actualización: ", "</b>", as.character(LLcondata$fecha_actualizada), "<br>")
+```{r libertad Codigo, include=FALSE}
+popup_libertad <- paste0("<b>", "Departamento: ", "</b>", as.character(libertadcondata$DEPARTAMEN), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(libertadcondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(libertadcondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(libertadcondata$Casos_Positivos), "<br>", "<b>", "Concentración distrito/región (%): ", "</b>", as.character(libertadcondata$concentra_reg), "<br>")
 
-palfac_LL <- colorFactor(palette=c("#ffffcc","#a1dab4","#41b6c4","#225ea8","#636363"), domain = LLcondata$Categoria)
+palfac_libertad <- colorFactor(palette=c("#ffff9f","#ffb48c","#ff7858","#fb4f31", "#d14100","#ffffff"), domain = libertadcondata$concentra_reg2)
 
-LL_mapa <- leaflet(LLcondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+libertad_mapa <- leaflet(libertadcondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
   addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
-              fillOpacity = 0.5, fillColor = ~palfac_LL(LLcondata$Categoria), group = "Belleza",
+              fillOpacity = 0.5, fillColor = ~palfac_libertad(libertadcondata$concentra_reg2), group = "Belleza",
               highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
-              label = ~LLcondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_LL) %>%
-  addLegend(position = "topright", pal = palfac_LL, values = ~LLcondata$Categoria,
-            title = "% de casos positivos por Región")
+              label = ~libertadcondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_libertad) %>%
+  addLegend(position = "topright", pal = palfac_libertad, values = ~libertadcondata$concentra_reg2,
+            title = "Porcentaje regional (por distritos)")
+```
+
+```{r libertad Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+libertad_mapa
+```
+
+#### Región: Áncash
+
+```{r ancash Data, include=FALSE}
+
+ancash <- distrito[distrito$DEPARTAMEN == "ANCASH",]
+
+ancashcondata=merge(ancash,datos_distrito,by.x="IDDIST",by.y="IDDIST")
 ```
 
 
-```{r La Libertad Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
-LL_mapa
+```{r ancash Codigo, include=FALSE}
+popup_ancash <- paste0("<b>", "Departamento: ", "</b>", as.character(ancashcondata$DEPARTAMEN), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(ancashcondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(ancashcondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(ancashcondata$Casos_Positivos), "<br>", "<b>", "Concentración distrito/región (%): ", "</b>", as.character(ancashcondata$concentra_reg), "<br>")
+
+palfac_ancash <- colorFactor(palette=c("#ffff9f","#ffb48c","#ff7858","#fb4f31", "#d14100","#ffffff"), domain = ancashcondata$concentra_reg2)
+
+ancash_mapa <- leaflet(ancashcondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_ancash(ancashcondata$concentra_reg2), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~ancashcondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_ancash) %>%
+  addLegend(position = "topright", pal = palfac_ancash, values = ~ancashcondata$concentra_reg2,
+            title = "Porcentaje regional (por distritos)")
 ```
 
-Para ver diferentes regiones siga este [enlace](mapas_distritos.html)
+```{r ancash Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+ancash_mapa
+```
+
+#### Región: Ica
+
+```{r ica Data, include=FALSE}
+
+ica <- distrito[distrito$DEPARTAMEN == "ICA",]
+
+icacondata=merge(ica,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r ica Codigo, include=FALSE}
+popup_ica <- paste0("<b>", "Departamento: ", "</b>", as.character(icacondata$DEPARTAMEN), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(icacondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(icacondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(icacondata$Casos_Positivos), "<br>", "<b>", "Concentración distrito/región (%): ", "</b>", as.character(icacondata$concentra_reg), "<br>")
+
+palfac_ica <- colorFactor(palette=c("#ffff9f","#ffb48c","#ff7858","#fb4f31", "#d14100","#ffffff"), domain = icacondata$concentra_reg2)
+
+ica_mapa <- leaflet(icacondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_ica(icacondata$concentra_reg2), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~icacondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_ica) %>%
+  addLegend(position = "topright", pal = palfac_ica, values = ~icacondata$concentra_reg2,
+            title = "Porcentaje regional (por distritos)")
+```
+
+```{r ica Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+ica_mapa
+```
+
+#### Región: Ucayali
+
+```{r ucayali Data, include=FALSE}
+
+ucayali <- distrito[distrito$DEPARTAMEN == "UCAYALI",]
+
+ucayalicondata=merge(ucayali,datos_distrito,by.x="IDDIST",by.y="IDDIST")
+```
+
+
+```{r ucayali Codigo, include=FALSE}
+popup_ucayali <- paste0("<b>", "Departamento: ", "</b>", as.character(ucayalicondata$DEPARTAMEN), "<br>",
+                "<b>", "Provincia: ", "</b>", as.character(ucayalicondata$PROVINCIA.y), "<br>",
+                "<b>", "Distrito: ", "</b>", as.character(ucayalicondata$DISTRITO.y), "<br>",
+                "<b>", "Casos Positivos: ", "</b>", as.character(ucayalicondata$Casos_Positivos), "<br>", "<b>", "Concentración distrito/región (%): ", "</b>", as.character(ucayalicondata$concentra_reg), "<br>")
+
+palfac_ucayali <- colorFactor(palette=c("#ffff9f","#ffb48c","#ff7858","#fb4f31", "#d14100","#ffffff"), domain = ucayalicondata$concentra_reg2)
+
+ucayali_mapa <- leaflet(ucayalicondata) %>% addProviderTiles(providers$Esri.WorldGrayCanvas) %>% 
+  addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 1,
+              fillOpacity = 0.5, fillColor = ~palfac_ucayali(ucayalicondata$concentra_reg2), group = "Belleza",
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE), 
+              label = ~ucayalicondata$DISTRITO.y, labelOptions = labelOptions(direction = "auto"), popup = popup_ucayali) %>%
+  addLegend(position = "topright", pal = palfac_ucayali, values = ~ucayalicondata$concentra_reg2,
+            title = "Porcentaje regional (por distritos)")
+```
+
+```{r ucayali Mapa, eval=TRUE, echo=FALSE, fig.width=3.5, fig.align='center', message=FALSE,warning=FALSE}
+ucayali_mapa
+```

@@ -30,7 +30,7 @@ El objetivo final es construir un repositorio de las medidas adoptadas, acciones
 <div style="text-align:justify"> Esta sección registra la cadena de decisiones políticas adoptadas por el gobierno nacional en el contexto de la Emergencia Nacional a causa del COVID-19. Este seguimiento cuenta con temas como: trayectoria de las decisiones, instrumentos de politicas, redes de politicas, establecimiento de los problemas publicos, servidores de primera linea, eventos de protestas, pronunciamientos y demandas. </div>
 </p>    
 
-<div align="center"><img src="nacional_files/figure-html/midis.png"><!-- --></div>
+<div align="center"><img src="nacional_files/figure-html/minsa.png"><!-- --></div>
 
 [Sección 3: Seguimiento sub-nacional](https://covid-19-proyectoperu.github.io/subnacional.html)
 
