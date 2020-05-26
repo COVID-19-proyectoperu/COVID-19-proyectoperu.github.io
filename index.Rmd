@@ -21,7 +21,28 @@ El objetivo final es construir un repositorio de las medidas adoptadas, acciones
 <div style="text-align:justify">Esta sección presenta una serie de indicadores para responder a la pregunta: **¿Cómo se ha desarrollado la propagación del COVID-19 en el Perú?** </div>
 </p>
 
-<div align="center"><img src="casos_files/figure-html/file3532f41cdba.gif" /></div>
+```{r, echo=FALSE,eval=TRUE, message=FALSE,fig.align='center', warning=FALSE}
+### Cargar la data
+
+
+options(scipen=999)
+casosperu="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsBU46m84Yl8hUIo5c1fILeYqcSa4vDXhFyIQ_QbUJndBfLLO-N4nkHOfl5hgZMWKzv1L73oiqwzm/pub?gid=1165383620&single=true&output=csv"
+
+casos=as.data.frame(read.csv(casosperu,header=T))
+
+### Lectura adecuada
+casos$casos_positivos<-as.numeric(casos$casos_positivos)
+casos$dia<-as.Date(casos$dia)
+### datos
+
+library(dplyr)
+library(ggplot2)
+g2<-casos %>% ggplot(aes(x=dia, y=casos_activos))  +  geom_line(color="#ffff28", size=0.8) +  ylim(0,max(casos$casos_activos)*3)+geom_bar(fill="#42857b",aes(y=recuperados_dia),stat = "identity",width = 1) +geom_line(color="#c93c20",aes(y=c_positivos_dia))+  geom_point(size=2, aes(y=c_positivos_dia),color="#c93c20")  + 
+ scale_y_log10()+ theme_classic() + labs(title="Evolución de los casos activos",caption = "Fuente: Sala Situacional - Minsa. Elaborado para 'Politólogos en cuarentena'" ,x = "Fecha", y="Número de casos")+ theme(plot.caption=element_text(size=8, hjust=0.5, face="italic", color="black")) 
+
+g2 + geom_text(aes(y=casos_activos,label=casos_activos),position=position_dodge(width = 0.9),size=2, vjust=0,hjust=1,col="#2f4f4f", angle=-50)
+
+```
 
 
 [Sección 2: Seguimiento nacional](https://covid-19-proyectoperu.github.io/nacional.html)    
